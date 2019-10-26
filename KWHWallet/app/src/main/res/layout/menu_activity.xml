@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#414141">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="48dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/kwh_wallet_logo" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/imageView2"
+            android:fontFamily="@font/montserrat"
+            android:text="KWH"
+            android:textColor="@color/colorWhite"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/notification"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/setting"
+            android:padding="7dp"
+            app:srcCompat="@drawable/ic_notification" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="9dp"
+            app:srcCompat="@drawable/ic_setting" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/colorGray" />
+
+        <TextView
+            android:id="@+id/KWH_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="KWH CASH"
+            android:textColor="@color/colorWhite"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/KWH_cash"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Rp"
+            android:textColor="@color/colorOrange"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/KWH_cash"
+            android:layout_toRightOf="@+id/rp"
+            android:fontFamily="@font/montserrat"
+            android:text="56.000"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorOrange"
+            android:textSize="24dp" />
+
+        <Button
+            android:id="@+id/topUp"
+            android:layout_width="138dp"
+            android:layout_height="34dp"
+            android:background="@color/colorOrange"
+            android:text="TOP UP"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgApp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"></LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="46dp"
+            android:layout_height="37dp"
+            app:srcCompat="@drawable/ic_transfer" />
+
+    </RelativeLayout>
+
+</LinearLayout>
