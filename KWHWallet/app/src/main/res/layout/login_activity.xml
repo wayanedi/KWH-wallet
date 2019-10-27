@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:background="#414141">
+
+    <TextView
+        android:id="@+id/TextViewBottomTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/kwh"
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        android:drawableStart="@drawable/kwh_wallet_logo"/>
+
+    <TextView
+        android:id="@+id/LoginTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/TextViewBottomTitle"
+        android:text="@string/login"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/username"
+        android:inputType="textAutoCorrect"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/LoginTitle"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/username"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/signuptext"
+            android:text="@string/belum_punya_akun_daftar"
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/HyperlinkDaftar"
+            android:text="@string/disini"
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/signuptext"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorHyperlink"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dbmhs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MASUK"
+        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/container"
+        android:fontFamily="@font/montserrat"
+        android:background="@color/colorHyperlink"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/copyrightProject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_above="@id/copyrightLogo"
+        android:text="&#169;KWH"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/copyrightLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:text="Kukuh Wayan Handi"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/colorWhite"
+        android:textSize="10sp"/>
+
+
+
+</RelativeLayout>
