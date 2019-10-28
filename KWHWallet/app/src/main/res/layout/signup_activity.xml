@@ -71,19 +71,53 @@
         android:fontFamily="@font/montserrat"
         android:textColor="@color/colorWhite" />
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/signuptext"
+            android:text="@string/sudah_punya_akun_masuk"
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/textView_login"
+            android:text="@string/disini"
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/signuptext"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorHyperlink"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/dbmhs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DAFTAR"
-        android:layout_marginTop="30dp"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/password"
-        android:fontFamily="@font/montserrat"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="63dp"
         android:background="@color/colorHyperlink"
+        android:fontFamily="@font/montserrat"
+        android:text="DAFTAR"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/copyrightProject"
