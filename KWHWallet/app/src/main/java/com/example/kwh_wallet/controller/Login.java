@@ -22,7 +22,6 @@ public class Login extends AppCompatActivity {
         hyperlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.signup_activity);
                 Intent i = new Intent(Login.this, SignUp.class);
                 startActivity(i);
             }
