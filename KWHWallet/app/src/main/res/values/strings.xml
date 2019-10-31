@@ -5,5 +5,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="belum_punya_akun_daftar">Belum punya akun? Daftar</string>
+    <string name="sudah_punya_akun_masuk">sudah punya akun? Masuk</string>
     <string name="disini">Disini</string>
+    <string name="daftar">Daftar</string>
+    <string name="email">Email</string>
+    <string name="kukuh_wayan_handi">Kukuh Wayan Handi</string>
 </resources>
