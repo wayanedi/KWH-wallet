@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#313131</color>
+    <color name="colorPrimaryDark">#1F1F1F</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorHyperlink">#FFA500</color>
+    <color name="colorGray">#CECECE</color>
+    <color name="colorOrange">#FFAA2F</color>
+    <color name="bgApp">#DBDBDB</color>
 </resources>
