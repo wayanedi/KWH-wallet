@@ -99,30 +99,357 @@
             android:id="@+id/topUp"
             android:layout_width="138dp"
             android:layout_height="34dp"
-            android:background="@color/colorOrange"
+            android:radius="10dp"
+            android:background="@drawable/border"
             android:text="TOP UP"
             android:textColor="@color/colorWhite"
-            android:textSize="20dp"
+            android:textSize="15dp"
+            android:textFontWeight="500"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:background="@color/bgApp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/menu_utama"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal"
+            android:background="@drawable/box_shadow"
+            android:layout_margin="30dp">
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="46dp"
-            android:layout_height="37dp"
-            app:srcCompat="@drawable/ic_transfer" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:background="@drawable/box_shadow">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageView
+                        android:id="@+id/tf_img"
+                        android:textAlignment="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/transfer123" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/transfer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Transfer"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/tf_img2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:textAlignment="center"
+                        app:srcCompat="@drawable/qrcode2" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/transfer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="KWH Id"
+                        android:textAlignment="center" />
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/tf_img3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:textAlignment="center"
+                        app:srcCompat="@drawable/user" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/transfer3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="List Teman"
+                        android:textAlignment="center" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:layout_below="@id/menu_utama"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/box_shadow"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/tf_img4"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/grayflash" />
+
+                        <TextView
+                            android:id="@+id/transfer4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="PLN"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img5"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/waterdrop" />
+
+                        <TextView
+                            android:id="@+id/transfer5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="PDAM"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img11"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/smartphone2" />
+
+                        <TextView
+                            android:id="@+id/transfer11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="PULSA"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/tf_img6"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/mticks" />
+
+                        <TextView
+                            android:id="@+id/transfer6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="TIKET"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img7"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/hospital_" />
+
+                        <TextView
+                            android:id="@+id/transfer7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="BPJS"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img10"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/handsmartphone" />
+
+                        <TextView
+                            android:id="@+id/transfer10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="PAKET DATA"
+                            android:textSize="12dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img8"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/grayflash" />
+
+                        <TextView
+                            android:id="@+id/transfer8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Listrik"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/tf_img9"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/grayflash" />
+
+                        <TextView
+                            android:id="@+id/transfer9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Listrik"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
