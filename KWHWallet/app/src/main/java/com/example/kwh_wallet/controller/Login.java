@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,8 +34,8 @@ public class Login extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                Intent i = new Intent(Login.this, MenuActivity.class);
+                startActivity(i);
             }
         });
     }

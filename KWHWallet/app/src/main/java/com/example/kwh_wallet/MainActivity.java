@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                //setelah loading maka akan langsung berpindah ke home activity
-                Intent home=new Intent(MainActivity.this, MenuActivity.class);
+                //setelah loading maka akan langsung berpindah ke login activity
+                Intent home=new Intent(MainActivity.this, Login.class);
                 startActivity(home);
                 finish();
 
