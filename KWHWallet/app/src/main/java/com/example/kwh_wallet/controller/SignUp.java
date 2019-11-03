@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,19 +27,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SignUp extends AppCompatActivity {
 
-    DatabaseReference databaseUser;
     Button btn;
     private TextView hyperlink;
     EditText editTextUsername;
     EditText editTextPassword;
     EditText editTextEmail;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
+        mAuth = FirebaseAuth.getInstance();
 
-        databaseUser = FirebaseDatabase.getInstance().getReference("users");
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         editTextUsername = findViewById(R.id.username);
@@ -45,10 +50,11 @@ public class SignUp extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username =editTextUsername.getText().toString().trim();
-                Query query = FirebaseDatabase.getInstance().getReference("users")
-                        .orderByChild("username").equalTo(username);
-                query.addListenerForSingleValueEvent(valueEventListener);
+                addUser();
+//                String username =editTextUsername.getText().toString().trim();
+//                Query query = FirebaseDatabase.getInstance().getReference("users")
+//                        .orderByChild("username").equalTo(username);
+//                query.addListenerForSingleValueEvent(valueEventListener);
 
             }
         });
@@ -65,66 +71,41 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            if(dataSnapshot.exists()){
-                System.out.println();
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-
-                    System.out.println(user.getEmail());
-                    addUser(true);
-                }
-            }
-            else{
-                addUser(false);
-            }
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };
-
-    private void addUser(boolean isExist){
 
 
-        if(isExist) {
-            System.out.println("this username has been registered");
-            Toast.makeText(this, "this user has been registered !", Toast.LENGTH_LONG).show();
-            return;
-        }
+    private void addUser(){
+
 
         String username =editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if(!cekEmail(email)){
-            Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
-            return;
+        final User user = new User(username, email);
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        System.out.println("berhasil");
+                        FirebaseDatabase.getInstance().getReference("users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    System.out.println("berhasil menambahkan user");
+                                }
+                            }
+                        });
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        System.out.println("gagal");
+                    }
 
-        }
-
-        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
-            String id = databaseUser.push().getKey();
-
-            User user = new User(id, username, email, password);
-            databaseUser.child(id).setValue(user);
-            editTextUsername.getText().clear();
-            editTextEmail.getText().clear();
-            editTextPassword.getText().clear();
-            Toast.makeText(this, "your register is success !", Toast.LENGTH_LONG).show();
-        }
-        else{
-
-            Toast.makeText(this, "your should complete the field !", Toast.LENGTH_LONG).show();
-
-        }
+                    // ...
+                }
+            });
     }
 
     public boolean cekEmail(String emailx){
