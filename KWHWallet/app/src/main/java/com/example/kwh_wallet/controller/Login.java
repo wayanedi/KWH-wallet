@@ -20,19 +20,25 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
     private TextView hyperlink;
     private Button btn;
-
+    private EditText editTextPassword;
+    private EditText editTextEmail;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        editTextEmail = findViewById(R.id.email);
+        editTextPassword = findViewById(R.id.password);
 
+        mAuth = FirebaseAuth.getInstance();
 
         hyperlink = findViewById(R.id.HyperlinkDaftar);
         hyperlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setContentView(R.layout.signup_activity);
                 Intent i = new Intent(Login.this, SignUp.class);
                 startActivity(i);
             }
@@ -44,10 +50,35 @@ public class Login extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Login.this, MenuActivity.class);
-                startActivity(i);
+                loginUser();
+
             }
         });
     }
+
+    public void loginUser(){
+
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Intent i = new Intent(Login.this, MenuActivity.class);
+                            startActivity(i);
+
+                        } else {
+                            System.out.println("gagal");
+                        }
+
+                        // ...
+                    }
+                });
+
+    }
+
 
 }
