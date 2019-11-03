@@ -26,6 +26,10 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
+        <activity android:name=".controller.MenuActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true">
+        </activity>
         <activity android:name=".controller.SignUp"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
