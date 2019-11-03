@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1084133332558",
+    "firebase_url": "https://kwh-wallet.firebaseio.com",
+    "project_id": "kwh-wallet",
+    "storage_bucket": "kwh-wallet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084133332558:android:e749f12ebac1cc18c9d51f",
+        "android_client_info": {
+          "package_name": "com.example.kwh_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084133332558-5p90k6pgr6uogrbm828tilibcuds4fgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kwh_wallet",
+            "certificate_hash": "e845e8c44abe05f0a2957d52fc611f87124f50d3"
+          }
+        },
+        {
+          "client_id": "1084133332558-5144ck90ln7mala8e341l4d3nof3tp2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEZQ6UZ5lJDhsfsapGCd6mrGvJG_1-CDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084133332558-5144ck90ln7mala8e341l4d3nof3tp2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

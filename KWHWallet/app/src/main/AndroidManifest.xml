@@ -15,6 +15,7 @@
         <activity android:name=".MainActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
+
             <intent-filter>
                 <!--entry point-->
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,6 +27,10 @@
             android:resizeableActivity="true">
         </activity>
         <activity android:name=".controller.MenuActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true">
+        </activity>
+        <activity android:name=".controller.SignUp"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
