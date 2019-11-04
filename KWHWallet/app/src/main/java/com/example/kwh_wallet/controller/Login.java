@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,10 +68,13 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             Intent i = new Intent(Login.this, MenuActivity.class);
+                            Toast.makeText(Login.this, "Login Success",
+                                    Toast.LENGTH_LONG).show();
                             startActivity(i);
-
                         } else {
                             System.out.println("gagal");
+                            Toast.makeText(Login.this, "Login anda gagal",
+                                    Toast.LENGTH_LONG).show();
                         }
 
                         // ...

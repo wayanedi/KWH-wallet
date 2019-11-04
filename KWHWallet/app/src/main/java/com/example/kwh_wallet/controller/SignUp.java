@@ -74,8 +74,6 @@ public class SignUp extends AppCompatActivity {
 
 
     private void addUser(){
-
-
         String username =editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -95,12 +93,17 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
                                     System.out.println("berhasil menambahkan user");
+                                    Toast.makeText(SignUp.this, "User berhasil didaftarkan",
+                                            Toast.LENGTH_LONG).show();
+                                    finish();
                                 }
                             }
                         });
                     } else {
                         // If sign in fails, display a message to the user.
                         System.out.println("gagal");
+                        Toast.makeText(SignUp.this, "Daftar gagal",
+                                Toast.LENGTH_LONG).show();
                     }
 
                     // ...
