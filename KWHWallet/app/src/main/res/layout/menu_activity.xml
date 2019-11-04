@@ -99,16 +99,15 @@
             android:id="@+id/topUp"
             android:layout_width="138dp"
             android:layout_height="34dp"
-            android:radius="10dp"
-            android:background="@drawable/border"
-            android:text="TOP UP"
-            android:textColor="@color/colorWhite"
-            android:textSize="15dp"
-            android:textFontWeight="500"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            />
+            android:background="@drawable/button"
+            android:radius="20dp"
+            android:text="TOP UP"
+            android:textColor="@color/colorWhite"
+            android:textFontWeight="500"
+            android:textSize="15dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -141,20 +140,19 @@
                     android:orientation="vertical"
                     >
 
-                    <ImageView
-                        android:id="@+id/tf_img"
-                        android:textAlignment="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/transfer123" />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
+                    <Button
                         android:id="@+id/transfer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#fff"
+                        android:drawableTop="@drawable/trans64"
+                        android:paddingTop="25dp"
+                        android:layout_gravity="center"
                         android:text="Transfer"
-                        android:textAlignment="center" />
+                        android:textColor="@color/colorOrange"
+                        android:textStyle="bold"
+                        android:textAlignment="center">
+                    </Button>
                 </LinearLayout>
 
                 <View
@@ -170,20 +168,19 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/tf_img2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:textAlignment="center"
-                        app:srcCompat="@drawable/qrcode2" />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/transfer2"
+                    <Button
+                        android:id="@+id/KWH_id"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="KWH Id"
-                        android:textAlignment="center" />
+                        android:layout_height="match_parent"
+                        android:background="#fff"
+                        android:drawableTop="@drawable/qr64"
+                        android:paddingTop="25dp"
+                        android:layout_gravity="center"
+                        android:text="KWH ID"
+                        android:textColor="@color/colorOrange"
+                        android:textStyle="bold"
+                        android:textAlignment="center">
+                    </Button>
                 </LinearLayout>
                 <View
                     android:id="@+id/divider4"
@@ -197,20 +194,19 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/tf_img3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:textAlignment="center"
-                        app:srcCompat="@drawable/user" />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/transfer3"
+                    <Button
+                        android:id="@+id/friendList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#fff"
+                        android:drawableTop="@drawable/friends64"
+                        android:paddingTop="25dp"
+                        android:layout_gravity="center"
                         android:text="List Teman"
-                        android:textAlignment="center" />
+                        android:textColor="@color/colorOrange"
+                        android:textStyle="bold"
+                        android:textAlignment="center">
+                    </Button>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -218,7 +214,7 @@
         <RelativeLayout
 
             android:layout_width="350dp"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             android:layout_below="@id/menu_utama"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
@@ -234,83 +230,29 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/tf_img4"
+                        <Button
+                            android:id="@+id/pln"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/grayflash" />
-
-                        <TextView
-                            android:id="@+id/transfer4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/flash64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
                             android:text="PLN"
-                            android:textAlignment="center"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/tf_img5"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/waterdrop" />
-
-                        <TextView
-                            android:id="@+id/transfer5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="PDAM"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/tf_img11"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/smartphone2" />
-
-                        <TextView
-                            android:id="@+id/transfer11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="PULSA"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
 
                     <LinearLayout
@@ -320,22 +262,63 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/tf_img6"
+                        <Button
+                            android:id="@+id/pdam"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/mticks" />
-
-                        <TextView
-                            android:id="@+id/transfer6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="TIKET"
-                            android:textAlignment="center"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/water64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
+                            android:text="PDAM"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/pulsa"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/smartphone64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
+                            android:text="PULSA"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/tiket"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/tickets64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
+                            android:text="TIKET"
+                            android:textColor="@color/colorOrange"
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -344,105 +327,93 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/tf_img7"
+                        <Button
+                            android:id="@+id/bpjs"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/hospital_" />
-
-                        <TextView
-                            android:id="@+id/transfer7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/hospital64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
                             android:text="BPJS"
-                            android:textAlignment="center"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/tf_img10"
+                        <Button
+                            android:id="@+id/paket_data"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/handsmartphone" />
-
-                        <TextView
-                            android:id="@+id/transfer10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/paketdata64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
                             android:text="PAKET DATA"
-                            android:textSize="12dp"
-                            android:textAlignment="center"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/tf_img8"
+                        <Button
+                            android:id="@+id/comingsoon"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/grayflash" />
-
-                        <TextView
-                            android:id="@+id/transfer8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Listrik"
-                            android:textAlignment="center"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/comingsoon64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
+                            android:text="Belum tersedia"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/tf_img9"
+                        <Button
+                            android:id="@+id/comingsoon"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textAlignment="center"
-                            app:srcCompat="@drawable/grayflash" />
-
-                        <TextView
-                            android:id="@+id/transfer9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Listrik"
-                            android:textAlignment="center"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:drawableTop="@drawable/comingsoon64"
+                            android:paddingTop="25dp"
+                            android:layout_gravity="center"
+                            android:text="Belum tersedia"
                             android:textColor="@color/colorOrange"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAlignment="center">
+                        </Button>
                     </LinearLayout>
                 </LinearLayout>
 

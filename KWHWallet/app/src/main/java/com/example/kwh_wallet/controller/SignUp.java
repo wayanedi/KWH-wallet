@@ -64,8 +64,7 @@ public class SignUp extends AppCompatActivity {
         hyperlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SignUp.this, Login.class);
-                startActivity(i);
+                finish();
             }
         });
 
@@ -105,8 +104,6 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(SignUp.this, "Daftar gagal",
                                 Toast.LENGTH_LONG).show();
                     }
-
-                    // ...
                 }
             });
     }

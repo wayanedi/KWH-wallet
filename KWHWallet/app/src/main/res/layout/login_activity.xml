@@ -111,11 +111,13 @@
                     android:id="@+id/dbmhs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MASUK"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="LOGIN"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:fontFamily="@font/montserrat"
-                    android:background="@color/colorHyperlink"
+                    android:background="@drawable/button"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
@@ -137,7 +139,8 @@
                     android:text="&#169;KWH"
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    app:backgroundTint="@color/colorOrange"/>
 
                 <TextView
                     android:id="@+id/copyrightLogo"
@@ -148,7 +151,8 @@
                     android:text="Kukuh Wayan Handi"
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/colorWhite"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp"
+                    app:backgroundTint="@color/colorOrange"/>
 
             </LinearLayout>
 
