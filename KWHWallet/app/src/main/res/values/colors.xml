@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#313131</color>
     <color name="colorPrimaryDark">#1F1F1F</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FFAA2F</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorHyperlink">#FFA500</color>
     <color name="colorGray">#CECECE</color>
     <color name="colorOrange">#FFAA2F</color>
+    <color name="colorOrangeDark">#CF8815</color>
     <color name="bgApp">#DBDBDB</color>
 </resources>
