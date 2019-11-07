@@ -7,6 +7,7 @@ import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.kwh_wallet.controller.HistoryViewActivity;
 import com.example.kwh_wallet.controller.Login;
 import com.example.kwh_wallet.controller.MenuActivity;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 //setelah loading maka akan langsung berpindah ke login activity
-                Intent home=new Intent(MainActivity.this, Login.class);
+                Intent home=new Intent(MainActivity.this, HistoryViewActivity.class);
                 startActivity(home);
                 finish();
 

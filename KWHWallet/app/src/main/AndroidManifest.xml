@@ -39,5 +39,9 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
+        <activity android:name=".controller.HistoryViewActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true">
+        </activity>
     </application>
 </manifest>
