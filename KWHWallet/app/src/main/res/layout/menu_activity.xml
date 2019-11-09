@@ -51,6 +51,66 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/colorGray" />
+
+        <TextView
+            android:id="@+id/KWH_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="KWH CASH"
+            android:textColor="@color/colorWhite"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/KWH_cash"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Rp"
+            android:textColor="@color/colorOrange"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/KWH_cash"
+            android:layout_toRightOf="@+id/rp"
+            android:fontFamily="@font/montserrat"
+            android:text="56.000"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorOrange"
+            android:textSize="24dp" />
+
+        <Button
+            android:id="@+id/topUp"
+            android:layout_width="138dp"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button"
+            android:radius="20dp"
+            android:text="TOP UP"
+            android:textColor="@color/colorWhite"
+            android:textFontWeight="500"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -75,378 +135,6 @@
 
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
 
-<!--        <View-->
-<!--            android:id="@+id/divider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0.7dp"-->
-<!--            android:background="@color/colorGray" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/KWH_cash"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:fontFamily="@font/montserrat"-->
-<!--            android:text="KWH CASH"-->
-<!--            android:textColor="@color/colorWhite"-->
-<!--            android:textSize="18dp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/rp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/KWH_cash"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:fontFamily="@font/montserrat"-->
-<!--            android:text="Rp"-->
-<!--            android:textColor="@color/colorOrange"-->
-<!--            android:textSize="12dp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/price"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/KWH_cash"-->
-<!--            android:layout_toRightOf="@+id/rp"-->
-<!--            android:fontFamily="@font/montserrat"-->
-<!--            android:text="56.000"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:textColor="@color/colorOrange"-->
-<!--            android:textSize="24dp" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/topUp"-->
-<!--            android:layout_width="138dp"-->
-<!--            android:layout_height="34dp"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            android:background="@drawable/button"-->
-<!--            android:radius="20dp"-->
-<!--            android:text="TOP UP"-->
-<!--            android:textColor="@color/colorWhite"-->
-<!--            android:textFontWeight="500"-->
-<!--            android:textSize="15dp" />-->
-<!--    </RelativeLayout>-->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:background="@color/bgApp">-->
-
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/menu_utama"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:background="@drawable/box_shadow"-->
-<!--            android:layout_margin="30dp">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:baselineAligned="false"-->
-<!--                android:background="@drawable/box_shadow">-->
-
-<!--                <LinearLayout-->
-<!--                    android:gravity="center"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical"-->
-<!--                    >-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/transfer"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="#fff"-->
-<!--                        android:drawableTop="@drawable/trans64"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:text="Transfer"-->
-<!--                        android:textColor="@color/colorOrange"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textAlignment="center">-->
-<!--                    </Button>-->
-<!--                </LinearLayout>-->
-
-<!--                <View-->
-<!--                    android:id="@+id/divider3"-->
-<!--                    android:layout_width="0.5dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="@color/colorGray" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:gravity="center">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/KWH_id"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="#fff"-->
-<!--                        android:drawableTop="@drawable/qr64"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:text="KWH ID"-->
-<!--                        android:textColor="@color/colorOrange"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textAlignment="center">-->
-<!--                    </Button>-->
-<!--                </LinearLayout>-->
-<!--                <View-->
-<!--                    android:id="@+id/divider4"-->
-<!--                    android:layout_width="0.5dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="@color/colorGray" />-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:gravity="center">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/friendList"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="#fff"-->
-<!--                        android:drawableTop="@drawable/friends64"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:text="List Teman"-->
-<!--                        android:textColor="@color/colorOrange"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textAlignment="center">-->
-<!--                    </Button>-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--        </RelativeLayout>-->
-
-<!--        <RelativeLayout-->
-
-<!--            android:layout_width="350dp"-->
-<!--            android:layout_height="220dp"-->
-<!--            android:layout_below="@id/menu_utama"-->
-<!--            android:layout_marginStart="30dp"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:layout_marginBottom="30dp"-->
-<!--            android:background="@drawable/box_shadow"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-<!--                        <Button-->
-<!--                            android:id="@+id/pln"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/flash64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="PLN"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/pdam"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/water64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="PDAM"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/pulsa"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/smartphone64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="PULSA"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/tiket"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/tickets64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="TIKET"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/bpjs"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/hospital64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="BPJS"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/paket_data"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/paketdata64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="PAKET DATA"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/comingsoon"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/comingsoon64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="Belum tersedia"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <Button-->
-<!--                            android:id="@+id/comingsoon"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:background="#fff"-->
-<!--                            android:drawableTop="@drawable/comingsoon64"-->
-<!--                            android:paddingTop="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:text="Belum tersedia"-->
-<!--                            android:textColor="@color/colorOrange"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textAlignment="center">-->
-<!--                        </Button>-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-
-
-<!--        </RelativeLayout>-->
-
-<!--    </RelativeLayout>-->
 
 </LinearLayout>
