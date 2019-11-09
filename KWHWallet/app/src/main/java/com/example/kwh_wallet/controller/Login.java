@@ -83,8 +83,9 @@ public class Login extends AppCompatActivity {
         String password = editTextPassword.getText().toString().trim();
 
         if(email.equals("") || password.equals(""))
-            Toast.makeText(Login.this, "Email or Password can't be empty!",
-                    Toast.LENGTH_LONG).show();
+            //Toast.makeText(Login.this, "Email or Password can't be empty!",
+             //       Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Login.this, QRCodeActivity.class));
         else
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
