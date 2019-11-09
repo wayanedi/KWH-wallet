@@ -8,10 +8,9 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kwh_wallet.controller.Login;
-import com.example.kwh_wallet.controller.MenuActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private int loadTime=4000;
+    private int loadTime=2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
