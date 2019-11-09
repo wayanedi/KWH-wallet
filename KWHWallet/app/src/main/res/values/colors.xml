@@ -9,4 +9,5 @@
     <color name="colorOrange">#FFAA2F</color>
     <color name="colorOrangeDark">#CF8815</color>
     <color name="bgApp">#DBDBDB</color>
+    <color name="bgToolbar">#414141</color>
 </resources>
