@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgApp">
+
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTING"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="32dp"
+            android:padding="10dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbars"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/akunPanel"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/akunTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun"
+                android:textSize="28dp"
+                android:textColor="@color/colorOrangeDark"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/editProfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bottom_border"
+                android:layout_below="@id/akunTitle"
+                android:text="Edit Profil"
+                android:textSize="26dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left">
+
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/keamananPanel"
+            android:layout_below="@id/akunPanel">
+
+            <TextView
+                android:id="@+id/keamananTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keamananan"
+                android:textSize="28dp"
+                android:textColor="@color/colorOrangeDark"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/ubahPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bottom_border"
+                android:layout_below="@id/keamananTitle"
+                android:text="Ubah Password"
+                android:textSize="26dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left">
+
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tentangPanel"
+            android:layout_below="@id/keamananPanel">
+
+            <TextView
+                android:id="@+id/tentangTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tentang"
+                android:textSize="28dp"
+                android:textColor="@color/colorOrangeDark"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/tentangKWH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bottom_border"
+                android:layout_below="@id/tentangTitle"
+                android:text="Tentang KWH"
+                android:textSize="26dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left">
+
+            </Button>
+
+            <Button
+                android:id="@+id/kebijakanPrivasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bottom_border"
+                android:layout_below="@id/tentangKWH"
+                android:text="Kebijakan Privasi"
+                android:textSize="26dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left">
+
+            </Button>
+
+            <Button
+                android:id="@+id/pusatBantuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bottom_border"
+                android:layout_below="@id/kebijakanPrivasi"
+                android:text="Pusat Bantuan"
+                android:textSize="26dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left">
+
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tentangPanel">
+
+            <TextView
+                android:id="@+id/copyrightProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="&#169;KWH"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/colorOrangeDark"
+                android:textSize="18sp"
+                app:backgroundTint="@color/colorOrange"
+                android:layout_alignParentBottom="true"
+                android:padding="10dp"/>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

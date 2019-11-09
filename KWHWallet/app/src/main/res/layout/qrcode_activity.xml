@@ -3,21 +3,46 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/bgApp">
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hai"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        android:textSize="18sp"
-        android:layout_margin="20dp"/>
+        android:background="@color/colorPrimary">
 
-    <ImageView
-        android:id="@+id/QR_Code"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true">
-    </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KWH ID"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="32dp"
+            android:padding="10dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbars">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hai"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:layout_margin="20dp"/>
+
+        <ImageView
+            android:id="@+id/QR_Code"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/username">
+        </ImageView>
+
+    </RelativeLayout>
 
 </RelativeLayout>
