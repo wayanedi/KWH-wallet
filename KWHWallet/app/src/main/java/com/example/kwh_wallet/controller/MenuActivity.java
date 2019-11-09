@@ -8,23 +8,39 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.kwh_wallet.R;
+import com.example.kwh_wallet.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     ImageView setting;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private TextView price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.menu_activity);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        System.out.println(firebaseUser.getEmail());
+        getSaldo();
         loadFragment(new HomeFragment());
 
         // inisialisasi BottomNavigaionView
@@ -48,6 +64,35 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
     }
+
+    private void getSaldo(){
+                Query query = FirebaseDatabase.getInstance().getReference("users")
+                        .orderByChild("email").equalTo(firebaseUser.getEmail());
+                query.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists()){
+
+                System.out.println("ada data nya");
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    price = findViewById(R.id.price);
+                    price.setText(Double.toString(user.getSaldo()));
+                    System.out.println("saldo user: " + user.getSaldo());
+                }
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
 
     // method untuk load fragment yang sesuai
     private boolean loadFragment(Fragment fragment) {
