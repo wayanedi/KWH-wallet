@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View;
@@ -32,6 +33,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private TextView price;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,9 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         Button topUp = (Button) findViewById(R.id.topUp);
         topUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 Intent topUp=new Intent(v.getContext(), TopUpActivity.class);
+                topUp.putExtra("USER", user);
                 startActivity(topUp);
             }
         });
@@ -79,7 +83,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                 System.out.println("ada data nya");
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
+                    user = snapshot.getValue(User.class);
                     price = findViewById(R.id.price);
                     price.setText(Double.toString(user.getSaldo()));
                     System.out.println("saldo user: " + user.getSaldo());
