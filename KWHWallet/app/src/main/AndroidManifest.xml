@@ -37,7 +37,18 @@
         </activity>
         <activity android:name=".controller.ScannerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
+        </activity>
+        <activity android:name=".controller.QRCodeActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
+        </activity>
+        <activity android:name=".controller.TopUpActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
         </activity>
         <activity android:name=".controller.HistoryViewActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"

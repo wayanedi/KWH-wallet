@@ -29,6 +29,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button kwh_id = (Button) view.findViewById(R.id.KWH_id);
+        kwh_id.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent qrId=new Intent(v.getContext(), QRCodeActivity.class);
+                startActivity(qrId);
+            }
+        });
+
         return view;
     }
 
