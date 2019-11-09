@@ -10,4 +10,9 @@
     <string name="daftar">Daftar</string>
     <string name="email">Email</string>
     <string name="kukuh_wayan_handi">Kukuh Wayan Handi</string>
+
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="account">Account</string>
 </resources>
