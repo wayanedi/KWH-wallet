@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/back"
+            android:layout_centerVertical="true"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,11 +27,9 @@
             android:fontFamily="@font/montserrat"
             android:textSize="24dp"
             android:paddingTop="10dp"
+            android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            android:drawableStart="@drawable/back"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:drawablePadding="10dp"/>
+            android:layout_toRightOf="@+id/backBtn"/>
 
     </RelativeLayout>
 
@@ -37,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/akunPanel"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/akunTitle"
@@ -62,7 +68,7 @@
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="left">
 
             </Button>
@@ -90,16 +96,16 @@
                 android:id="@+id/ubahPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/keamananTitle"
-                android:text="Ubah Password"
-                android:textSize="16dp"
-                android:fontFamily="@font/montserrat"
-                android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="left">
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_bottom_border"
+                android:fontFamily="@font/montserrat"
+                android:gravity="left"
+                android:text="Ubah Password"
+                android:textAllCaps="false"
+                android:textSize="16dp">
 
             </Button>
 
@@ -134,7 +140,7 @@
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="left">
 
             </Button>
@@ -151,7 +157,7 @@
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="left">
 
             </Button>
@@ -168,8 +174,43 @@
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="left">
+
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutPanel"
+            android:layout_below="@id/tentangPanel">
+
+            <TextView
+                android:id="@+id/logoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOGOUT"
+                android:textSize="18dp"
+                android:textColor="@color/colorOrangeDark"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logoutTitle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_bottom_border"
+                android:fontFamily="@font/montserrat"
+                android:gravity="left"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textSize="16dp">
 
             </Button>
 
@@ -188,11 +229,10 @@
                 android:text="&#169;KWH"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/colorOrangeDark"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:backgroundTint="@color/colorOrange"
                 android:layout_alignParentBottom="true"
                 android:padding="10dp"/>
-
 
         </RelativeLayout>
 
