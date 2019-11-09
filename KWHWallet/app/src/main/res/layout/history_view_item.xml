@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorGray">
+    android:background="#F5F5F5"
+    >
 
     <TextView
         android:id="@+id/tanggal"
@@ -12,10 +13,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:padding="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="12 Oktober 2019"
         android:textColor="@android:color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
 
     <RelativeLayout
@@ -23,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tanggal"
         android:background="@color/colorWhite"
-        android:padding="10dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/status"
@@ -33,7 +37,7 @@
             android:singleLine="true"
             android:text="TOP UP"
             android:textColor="@android:color/black"
-            android:textSize="20dp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
@@ -46,7 +50,7 @@
             android:singleLine="true"
             android:text="Total"
             android:textColor="@android:color/black"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/total2"
@@ -59,7 +63,7 @@
             android:singleLine="true"
             android:text="+ Rp 200.000"
             android:textColor="@android:color/holo_green_dark"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
     </RelativeLayout>
 
 </RelativeLayout>
