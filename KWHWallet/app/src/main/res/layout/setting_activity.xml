@@ -17,8 +17,13 @@
             android:text="SETTING"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat"
-            android:textSize="32dp"
-            android:padding="10dp" />
+            android:textSize="24dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawableStart="@drawable/back"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:drawablePadding="10dp"/>
 
     </RelativeLayout>
 
@@ -32,18 +37,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/akunPanel"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/akunTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Akun"
-                android:textSize="28dp"
+                android:textSize="18dp"
                 android:textColor="@color/colorOrangeDark"
                 android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/editProfil"
@@ -52,7 +57,7 @@
                 android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/akunTitle"
                 android:text="Edit Profil"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
@@ -75,11 +80,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Keamananan"
-                android:textSize="28dp"
+                android:textSize="18dp"
                 android:textColor="@color/colorOrangeDark"
                 android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/ubahPassword"
@@ -88,7 +93,7 @@
                 android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/keamananTitle"
                 android:text="Ubah Password"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
@@ -111,11 +116,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tentang"
-                android:textSize="28dp"
+                android:textSize="18dp"
                 android:textColor="@color/colorOrangeDark"
                 android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/tentangKWH"
@@ -124,7 +129,7 @@
                 android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/tentangTitle"
                 android:text="Tentang KWH"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
@@ -141,7 +146,7 @@
                 android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/tentangKWH"
                 android:text="Kebijakan Privasi"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
@@ -158,7 +163,7 @@
                 android:background="@drawable/button_bottom_border"
                 android:layout_below="@id/kebijakanPrivasi"
                 android:text="Pusat Bantuan"
-                android:textSize="26dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"

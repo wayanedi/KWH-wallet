@@ -37,32 +37,4 @@
         android:layout_height="300dp"
         android:layout_centerInParent="true">
     </ImageView>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbars">
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hai"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:textSize="18sp"
-            android:layout_margin="20dp"/>
-
-        <ImageView
-            android:id="@+id/QR_Code"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/username">
-        </ImageView>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+ </RelativeLayout>
