@@ -50,6 +50,11 @@
             android:resizeableActivity="true"
             android:parentActivityName=".controller.MenuActivity">
         </activity>
+        <activity android:name=".controller.SettingActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
+        </activity>
         <activity android:name=".controller.HistoryViewActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">

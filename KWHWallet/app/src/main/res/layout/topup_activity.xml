@@ -4,6 +4,29 @@
     android:background="@color/bgApp">
 
     <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOP UP"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="24dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawableStart="@drawable/back"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:drawablePadding="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/toolbars"
         android:id="@+id/balance"
         android:layout_width="match_parent"
         android:layout_height="120dp"
