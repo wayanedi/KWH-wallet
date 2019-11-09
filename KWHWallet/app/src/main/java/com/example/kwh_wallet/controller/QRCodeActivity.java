@@ -3,8 +3,8 @@ package com.example.kwh_wallet.controller;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +14,6 @@ import com.example.kwh_wallet.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
@@ -39,6 +38,13 @@ public class QRCodeActivity extends AppCompatActivity {
         } catch (WriterException e){
             e.printStackTrace();
         }
+
+        ImageView back = findViewById(R.id.backBtn);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

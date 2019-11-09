@@ -126,8 +126,8 @@
 
         <Button
             android:id="@+id/topupBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
             android:text="TOP UP"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/mintopup"
@@ -135,7 +135,7 @@
             android:fontFamily="@font/montserrat"
             android:background="@drawable/button"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"/>
 
     </RelativeLayout>
