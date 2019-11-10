@@ -26,7 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TransferActivity extends AppCompatActivity {
@@ -89,8 +93,8 @@ public class TransferActivity extends AppCompatActivity {
                         if(Double.parseDouble(value.getText().toString())<10000)
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
-                            updateSaldo(Double.parseDouble(value.getText().toString()) + user.getSaldo(), key);
-                            updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid());
+                            updateSaldo(Double.parseDouble(value.getText().toString()) + user.getSaldo(), key, "+");
+                            updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                         }
                         else
                             Toast.makeText(getApplication(), "Saldo anda tidak mencukupi!", Toast.LENGTH_SHORT).show();
@@ -142,10 +146,19 @@ public class TransferActivity extends AppCompatActivity {
         }
     };
 
-    private void updateSaldo(double saldo, String key) {
+    private void updateSaldo(double saldo, String key, String stats) {
         EditText email = findViewById(R.id.email);
         try {
             FirebaseDatabase.getInstance().getReference("users").child(key).child("saldo").setValue(saldo);
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
+            System.out.println(formatter.format(calendar.getTime()));
+            DatabaseReference mDatabase;
+            EditText value = findViewById(R.id.value);
+            mDatabase = FirebaseDatabase.getInstance().getReference("history");
+            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+Double.parseDouble(value.getText().toString()));
+            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("deskripsi").setValue("Transfer");
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
             showDialog();
         } catch (Exception e) {
