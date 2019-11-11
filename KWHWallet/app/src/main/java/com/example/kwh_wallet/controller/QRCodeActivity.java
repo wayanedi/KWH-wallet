@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kwh_wallet.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -20,12 +22,15 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class QRCodeActivity extends AppCompatActivity {
     String username;
     ImageView imageView;
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode_activity);
-        username = "Hai Manis :)";
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        username = firebaseUser.getUid();
         imageView =  findViewById(R.id.QR_Code);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
