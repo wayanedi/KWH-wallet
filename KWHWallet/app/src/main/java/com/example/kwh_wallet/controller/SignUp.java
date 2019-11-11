@@ -72,7 +72,7 @@ public class SignUp extends AppCompatActivity {
 
     private void addUser(){
         String username =editTextUsername.getText().toString().trim();
-        final String email = editTextEmail.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         final User user = new User(username, email);
@@ -84,7 +84,7 @@ public class SignUp extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         System.out.println("berhasil");
                         FirebaseDatabase.getInstance().getReference("users")
-                                .child(email)
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
