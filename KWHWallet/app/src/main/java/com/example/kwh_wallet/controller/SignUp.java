@@ -70,8 +70,6 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-
-
     private void addUser(){
         String username =editTextUsername.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();

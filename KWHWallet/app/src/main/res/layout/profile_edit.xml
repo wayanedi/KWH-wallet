@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgApp">
+
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/back"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="24dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/backBtn"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:layout_centerInParent="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/usernameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorOrangeDark" />
+
+        <EditText
+            android:id="@+id/usernameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Handi Hermawan"
+            android:layout_below="@id/usernameTitle" />
+
+        <TextView
+            android:id="@+id/emailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/colorOrangeDark"
+            android:layout_below="@id/usernameTxt"/>
+
+        <EditText
+            android:id="@+id/emailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Handi.com"
+            android:layout_below="@id/emailTitle" />
+
+        <Button
+            android:id="@+id/ubahProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simpan Profile"
+            android:layout_below="@id/emailTxt"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button"
+            android:textColor="@color/colorWhite"
+            android:padding="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

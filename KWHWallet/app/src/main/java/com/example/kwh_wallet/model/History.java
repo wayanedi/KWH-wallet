@@ -4,10 +4,22 @@ public class History {
     private String tanggal;
     private String jumlah;
 
-    public History(String tanggal,String jumlah){
+    private String deskripsi;
+
+    public History(String tanggal,String jumlah, String deskripsi){
         setTanggal(tanggal);
         setJumlah(jumlah);
+        setDeskripsi(deskripsi);
     }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
     public String getTanggal() {
         return tanggal;
     }
