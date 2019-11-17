@@ -14,6 +14,11 @@ public class User implements Parcelable {
 
     }
 
+    public User(String username, String email){
+        this.username = username;
+        this.email = email;
+        this.setSaldo(0);
+    }
 
     public User(String username, String email, String pin){
         this.username = username;

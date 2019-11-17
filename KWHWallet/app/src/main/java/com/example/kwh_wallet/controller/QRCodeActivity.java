@@ -33,8 +33,6 @@ public class QRCodeActivity extends AppCompatActivity {
         username = firebaseUser.getUid();
         imageView =  findViewById(R.id.QR_Code);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(username, BarcodeFormat.QR_CODE, 600, 600);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
