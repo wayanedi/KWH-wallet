@@ -34,7 +34,6 @@ public class SignUp extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextEmail;
-    private EditText editTextPin;
     private EditText rePassword;
 
     private FirebaseAuth mAuth;
@@ -51,7 +50,6 @@ public class SignUp extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         editTextUsername = findViewById(R.id.username);
         rePassword = findViewById(R.id.rePassword);
-        editTextPin = findViewById(R.id.editTextPin);
 
 
         btn = findViewById(R.id.dbmhs);
@@ -91,9 +89,9 @@ public class SignUp extends AppCompatActivity {
         String username =editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-        String pin = editTextPin.getText().toString().trim();
 
-        final User user = new User(username, email, pin);
+
+        final User user = new User(username, email, "NONE");
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override

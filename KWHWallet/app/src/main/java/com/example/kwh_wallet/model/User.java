@@ -64,6 +64,7 @@ public class User implements Parcelable {
         parcel.writeString(this.username);
         parcel.writeString(this.email);
         parcel.writeDouble(this.saldo);
+        parcel.writeString(this.pin);
 
     }
 
@@ -71,6 +72,7 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.email = in.readString();
         this.saldo = in.readDouble();
+        this.pin = in.readString();
     }
 
     public String getPin() {
