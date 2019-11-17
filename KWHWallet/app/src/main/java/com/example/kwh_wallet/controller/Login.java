@@ -109,8 +109,6 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "Login anda gagal",
                                     Toast.LENGTH_LONG).show();
                         }
-
-                        // ...
                     }
                 });
 
