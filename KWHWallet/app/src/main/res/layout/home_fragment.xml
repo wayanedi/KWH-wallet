@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     android:background="#414141">
 
-
-
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -321,5 +323,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

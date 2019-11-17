@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.kwh_wallet.MainActivity;
 import com.example.kwh_wallet.R;
 
 public class HomeFragment extends Fragment {
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -34,6 +38,19 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent qrId=new Intent(v.getContext(), QRCodeActivity.class);
                 startActivity(qrId);
+            }
+        });
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
             }
         });
 

@@ -1,11 +1,13 @@
 package com.example.kwh_wallet.controller;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kwh_wallet.R;
@@ -29,6 +31,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return vh;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tanggal.setText(historyList.get(position).getTanggal());
@@ -37,6 +40,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.total.setText(historyList.get(position).getJumlah());
         System.out.println(historyList.get(position).getTanggal());
         holder.status.setText(historyList.get(position).getDeskripsi());
+        if(historyList.get(position).getJumlah().toString().substring(0,1).equals("-"))
+            holder.total.setTextColor(R.color.redText);
     }
 
     @Override

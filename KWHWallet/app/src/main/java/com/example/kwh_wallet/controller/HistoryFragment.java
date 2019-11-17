@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.History;
@@ -35,7 +36,7 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-
+    SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView ;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -58,8 +59,23 @@ public class HistoryFragment extends Fragment {
             adapter = new HistoryAdapter(listHistory);
             System.out.println("=============================ada===========================");
             recyclerView.setAdapter(adapter);
+            view.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                view.findViewById(R.id.recycle_view_history).bringToFront();
             }
         },1500);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
         return view;
 
     }
@@ -104,9 +120,7 @@ public class HistoryFragment extends Fragment {
 
 
                     String sTgl="";
-//                    for (int i=0;i<tgl.length;i++){
                         sTgl+=tgl[0];
-//                    }
                     Date date = null;
                     try {
                         date = simpleDateFormat.parse(sTgl);

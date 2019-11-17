@@ -77,17 +77,47 @@
             android:textColor="@color/colorOrange"
             android:textSize="12dp" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/KWH_cash"
             android:layout_toRightOf="@+id/rp"
-            android:fontFamily="@font/montserrat"
-            android:text="56.000"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/colorOrange"
-            android:textSize="18dp" />
+            >
+            <RelativeLayout
+                android:id="@+id/loadingPanel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:indeterminate="true"
+                    android:layout_marginLeft="5dp"/>
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text=""
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorOrange"
+                android:textSize="18dp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/reload"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/reload"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/topUp"/>
 
         <Button
             android:id="@+id/topUp"
@@ -111,7 +141,7 @@
         <FrameLayout
             android:id="@+id/fl_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="576dp"
             android:background="#F5F5F5"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
         </FrameLayout>
