@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
+import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,11 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SignUp extends AppCompatActivity {
 
-    Button btn;
+    private Button btn;
     private TextView hyperlink;
-    EditText editTextUsername;
-    EditText editTextPassword;
-    EditText editTextEmail;
+    private EditText editTextUsername;
+    private EditText editTextPassword;
+    private EditText editTextEmail;
+    private EditText editTextPin;
+    private EditText rePassword;
 
     private FirebaseAuth mAuth;
 
@@ -39,18 +43,31 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
+
+
         mAuth = FirebaseAuth.getInstance();
 
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         editTextUsername = findViewById(R.id.username);
+        rePassword = findViewById(R.id.rePassword);
+        editTextPin = findViewById(R.id.editTextPin);
+
 
         btn = findViewById(R.id.dbmhs);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addUser();
+
+                if(editTextPassword.getText().toString().equals(rePassword.getText().toString())){
+                    addUser();
+                }
+                else{
+                    Toast.makeText(SignUp.this, "Password tidak sama",
+                            Toast.LENGTH_LONG).show();
+                }
+
 //                String username =editTextUsername.getText().toString().trim();
 //                Query query = FirebaseDatabase.getInstance().getReference("users")
 //                        .orderByChild("username").equalTo(username);
@@ -74,8 +91,9 @@ public class SignUp extends AppCompatActivity {
         String username =editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String pin = editTextPin.getText().toString().trim();
 
-        final User user = new User(username, email);
+        final User user = new User(username, email, pin);
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
