@@ -38,6 +38,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     String username;
     double saldo;
     String email;
+    String pin;
     private static final int REQUEST_PERMISSIONS=20;
     public static final String KEY_USERNAME="USERNAME";
     public static final String KEY_EMAIL="EMAIL";
@@ -86,6 +87,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         builder.setMessage("Please Wait . . .");
         AlertDialog alert1 = builder.create();
         alert1.show();
+        onPause();
         System.out.println("rawResult" + rawResult.getText());
 
         try {
@@ -97,13 +99,19 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
                 int count = 0;
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
+
                     if (count == 0)
                         email = datas.getValue().toString();
 
                     if (count == 1) {
+                        pin = datas.getValue().toString();
+                    }
+
+                    if (count == 2) {
                         saldo = Double.parseDouble(datas.getValue().toString());
                     }
-                    if (count == 2)
+
+                    if (count == 3)
                         username = datas.getValue().toString();
                     count++;
                     System.out.println(count);
@@ -119,7 +127,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    User usr=new User(username,email);
+                    User usr=new User(username,email,pin);
                     usr.setSaldo(saldo);
                     Bundle bundle = new Bundle();
                     bundle.putString(KEY_EMAIL, usr.getEmail());
@@ -131,6 +139,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                     System.out.println(usr.getUsername());
                     System.out.println(usr.getSaldo());
                     startActivity(mIntent);
+                    finish();
                 }
             },3000);
         }catch (Exception e){

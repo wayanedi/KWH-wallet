@@ -11,6 +11,7 @@ import android.icu.text.DecimalFormat;
 
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -100,6 +102,27 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
     }
+
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }       
 
     private void getSaldo(){
                 Query query = FirebaseDatabase.getInstance().getReference("users")

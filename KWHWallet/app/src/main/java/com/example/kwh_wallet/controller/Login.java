@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
 
@@ -99,10 +99,12 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
                             firebaseUser = mAuth.getCurrentUser();
                             Toast.makeText(Login.this, "Login Success",
                                     Toast.LENGTH_LONG).show();
                             cekPin();
+
 
                         } else {
                             System.out.println("gagal");
@@ -133,12 +135,14 @@ public class Login extends AppCompatActivity {
 
                         Intent i = new Intent(Login.this, Code_activity.class);
                         i.putExtra("USER", user);
+                        finish();
                         startActivity(i);
 
                     }
                     else{
                         Intent i = new Intent(Login.this, MenuActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 }
 
