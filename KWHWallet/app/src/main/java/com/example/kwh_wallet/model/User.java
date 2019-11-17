@@ -8,15 +8,17 @@ public class User implements Parcelable {
     private String username;
     private String email;
     private double saldo;
+    private String pin;
 
     public User(){
 
     }
 
 
-    public User(String username, String email){
+    public User(String username, String email, String pin){
         this.username = username;
         this.email = email;
+        this.pin = pin;
         this.setSaldo(0);
     }
 
@@ -32,6 +34,8 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+
 
     public String getUsername() {
         return username;
@@ -67,5 +71,13 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.email = in.readString();
         this.saldo = in.readDouble();
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 }

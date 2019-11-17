@@ -132,7 +132,7 @@ public class TransferActivity extends AppCompatActivity {
 
                     current_saldo=user.getSaldo();
                     TextView saldo = findViewById(R.id.saldo);
-                    saldo.setText(String.valueOf(current_saldo));
+                    saldo.setText(String.format("%,.0f", current_saldo));
                     System.out.println("saldo user: " + user.getSaldo());
                 }
             }else{
@@ -157,7 +157,7 @@ public class TransferActivity extends AppCompatActivity {
             DatabaseReference mDatabase;
             EditText value = findViewById(R.id.value);
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
-            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+Double.parseDouble(value.getText().toString()));
+            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+value.getText().toString());
             mDatabase.child(key).child(formatter.format(calendar.getTime())).child("deskripsi").setValue("Transfer");
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
             showDialog();
