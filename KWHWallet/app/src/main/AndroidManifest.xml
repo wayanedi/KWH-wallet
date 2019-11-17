@@ -1,75 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kwh_wallet">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".controller.Code_activity"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
-
             <intent-filter>
-                <!--entry point-->
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <!-- entry point -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.Login"
+        <activity
+            android:name=".controller.Login"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.MenuActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.MenuActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.SignUp"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.SignUp"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.ScannerActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.ScannerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"
-            android:parentActivityName=".controller.MenuActivity">
-        </activity>
-        <activity android:name=".controller.QRCodeActivity"
+            android:parentActivityName=".controller.MenuActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.QRCodeActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"
-            android:parentActivityName=".controller.MenuActivity">
-        </activity>
-        <activity android:name=".controller.TopUpActivity"
+            android:parentActivityName=".controller.MenuActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.TopUpActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"
-            android:parentActivityName=".controller.MenuActivity">
-        </activity>
-        <activity android:name=".controller.SettingActivity"
+            android:parentActivityName=".controller.MenuActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.SettingActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"
-            android:parentActivityName=".controller.MenuActivity">
-        </activity>
-        <activity android:name=".controller.HistoryViewActivity"
+            android:parentActivityName=".controller.MenuActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.HistoryViewActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.TransferActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.TransferActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.PasswordChangeActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.PasswordChangeActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
-        <activity android:name=".controller.EditProfileActivity"
+            android:resizeableActivity="true"></activity>
+        <activity
+            android:name=".controller.EditProfileActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true">
-        </activity>
+            android:resizeableActivity="true"></activity>
     </application>
+
 </manifest>
