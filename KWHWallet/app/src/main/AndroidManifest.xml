@@ -75,7 +75,11 @@
         <activity
             android:name=".controller.EditProfileActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"></activity>
+            android:resizeableActivity="true">
+        </activity>
+        <service android:name=".NotificationService.TransferNotificationService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>
