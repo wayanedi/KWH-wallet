@@ -1,6 +1,7 @@
 package com.example.kwh_wallet.controller;
 
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.MenuItem;
@@ -67,6 +68,15 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+
+        findViewById(R.id.reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+                price.setVisibility(View.GONE);
+                getSaldo();
+            }
+        });
     }
 
     private void getSaldo(){
@@ -85,7 +95,15 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     user = snapshot.getValue(User.class);
                     price = findViewById(R.id.price);
-                    price.setText(Double.toString(user.getSaldo()));
+
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    DecimalFormat df = new DecimalFormat("#");
+//                    System.out.print();
+
+                    price.setText(String.format("%,.0f", user.getSaldo()));
+                    price.setVisibility(View.VISIBLE);
+                    price.bringToFront();
+
                     System.out.println("saldo user: " + user.getSaldo());
                 }
 

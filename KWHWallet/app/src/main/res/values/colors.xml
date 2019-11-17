@@ -10,7 +10,7 @@
     <color name="colorOrangeDark">#CF8815</color>
     <color name="bgApp">#DBDBDB</color>
     <color name="bgToolbar">#414141</color>
-
+    <color name="redText">#fa1433</color>
     <color name="colorNavigationIcon">#dae9f6</color>
     <color name="colorNavigationText">#ffffff</color>
 </resources>
