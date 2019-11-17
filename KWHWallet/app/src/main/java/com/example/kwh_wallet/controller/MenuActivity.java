@@ -1,8 +1,11 @@
 package com.example.kwh_wallet.controller;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.icu.text.DecimalFormat;
 
 
@@ -50,6 +53,9 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
     private Double oldSaldo;
     private Double newSaldo;
+
+    private BroadcastReceiver minuteUpdateReceiver;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +129,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                         oldSaldo = user.getSaldo();
                     }else{
                         newSaldo = user.getSaldo();
+                        startService();
                     }
                     System.out.println("saldo user: " + user.getSaldo());
                 }
@@ -167,10 +174,53 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     //Notification
+
     public void startService(){
-        Intent serviceIntent = new Intent(this, TransferNotificationService.class);
-        serviceIntent.putExtra("inputExtra", "Anda menerima Transfer sebesar Rp "+(newSaldo-oldSaldo));
-        
-        ContextCompat.startForegroundService(this, serviceIntent);
+        if(newSaldo > oldSaldo){
+            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+            serviceIntent.putExtra("inputExtra", "Anda telah menerima Transfer sebesar Rp "+String.valueOf((newSaldo-oldSaldo)));
+
+            ContextCompat.startForegroundService(this, serviceIntent);
+            oldSaldo = newSaldo;
+            newSaldo = null;
+        }
+        else if(newSaldo == oldSaldo){
+            newSaldo = null;
+        }
+        else if(oldSaldo > newSaldo){
+            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+            serviceIntent.putExtra("inputExtra", "Anda telah melakukan Transfer sebesar Rp "+String.valueOf((oldSaldo-newSaldo)));
+
+            ContextCompat.startForegroundService(this, serviceIntent);
+            oldSaldo = newSaldo;
+            newSaldo = null;
+        }
+    }
+
+    //AutoRefresh
+
+    public void startMinuteUpdater() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
+        minuteUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                counter++;
+            }
+        };
+
+        registerReceiver(minuteUpdateReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startMinuteUpdater();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(minuteUpdateReceiver);
     }
 }
