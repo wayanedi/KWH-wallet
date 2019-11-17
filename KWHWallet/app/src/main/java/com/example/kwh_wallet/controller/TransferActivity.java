@@ -155,10 +155,12 @@ public class TransferActivity extends AppCompatActivity {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
             System.out.println(formatter.format(calendar.getTime()));
             DatabaseReference mDatabase;
-            EditText value = findViewById(R.id.value);
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
+            EditText value = findViewById(R.id.value);
             mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+value.getText().toString());
             mDatabase.child(key).child(formatter.format(calendar.getTime())).child("deskripsi").setValue("Transfer");
+//            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("from").setValue(firebaseUser.getDisplayName());
+//            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("to").setValue(firebaseUser.getDisplayName());
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
             showDialog();
         } catch (Exception e) {

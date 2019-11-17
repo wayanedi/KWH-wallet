@@ -59,14 +59,13 @@
         <activity
             android:name=".controller.SettingActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
+        </activity>
+        <activity android:name=".controller.TransferActivity"
             android:parentActivityName=".controller.MenuActivity"
             android:resizeableActivity="true"></activity>
-        <activity
-            android:name=".controller.HistoryViewActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"></activity>
-        <activity
-            android:name=".controller.TransferActivity"
+        <activity android:name=".controller.TransferFromScannerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true"></activity>
         <activity

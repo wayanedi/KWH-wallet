@@ -110,6 +110,7 @@ public class HistoryFragment extends Fragment {
                     for (int i=0;i<arrOfStr.length;i++){
                         s+=arrOfStr[i];
                     }
+
                     String[] fixedStr = s.split(", deskripsi=");
                     System.out.println(fixedStr[1]);
                     System.out.println(fixedStr[0]);
@@ -117,8 +118,14 @@ public class HistoryFragment extends Fragment {
                     String[] tgl = snapshot.getKey().split("_");
                     String pattern = "dd-MM-yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//===================================================================================
+                    String sTot=fixedStr[0];
+                    String sTotFinal = sTot.substring(2,sTot.length());
 
-
+                    System.out.println("ini Stot =====================================" );
+//                    for (int i=0;i<fixedStr[0]length;i++){
+//                        s+=arrOfStr[i];
+//                    }
                     String sTgl="";
                         sTgl+=tgl[0];
                     Date date = null;
@@ -127,12 +134,7 @@ public class HistoryFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-//                    System.out.println("ini tanggal"+date);
-//                    System.out.println(date.toString().substring(0,10));
-//                    Calendar cal = Calendar.getInstance();
-//                    cal.setTime(date);
-//                    System.out.println("tgl skrng" + cal);
-                    History history = new History(date.toString().substring(0,10),fixedStr[0],fixedStr[1]);
+                    History history = new History(date.toString().substring(0,10),sTot.substring(0,2) +"Rp. "+ String.format("%,.0f", Double.parseDouble(sTotFinal)),fixedStr[1]);
                     listHistory.add(history);
                 }
             }else{
