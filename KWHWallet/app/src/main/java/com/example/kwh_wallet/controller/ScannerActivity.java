@@ -35,7 +35,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, PermissionCallback, ErrorCallback {
     private ZXingScannerView mScannerView;
-    String username;
+    String username="";
     double saldo;
     String email;
     String pin;
@@ -82,10 +82,12 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     public void handleResult(final Result rawResult) {
         Log.v("TAG", rawResult.getText()); // Prints scan results
         Log.v("TAG", rawResult.getBarcodeFormat().toString());
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Massage");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Message");
         builder.setMessage("Please Wait . . .");
-        AlertDialog alert1 = builder.create();
+
+        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        final AlertDialog alert1 = builder.create();
         alert1.show();
         onPause();
         System.out.println("rawResult" + rawResult.getText());
@@ -127,23 +129,41 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    User usr=new User(username,email,pin);
-                    usr.setSaldo(saldo);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(KEY_EMAIL, usr.getEmail());
-                    bundle.putString(KEY_USERNAME, usr.getUsername());
-                    bundle.putString(KEY_UID, rawResult.getText());
-                    bundle.putDouble(KEY_SALDO, usr.getSaldo());
-                    mIntent.putExtras(bundle);
-                    System.out.println(usr.getEmail());
-                    System.out.println(usr.getUsername());
-                    System.out.println(usr.getSaldo());
-                    startActivity(mIntent);
-                    finish();
+                    if(!username.equals("")){
+                        User usr=new User(username,email,pin);
+                        usr.setSaldo(saldo);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(KEY_EMAIL, usr.getEmail());
+                        bundle.putString(KEY_USERNAME, usr.getUsername());
+                        bundle.putString(KEY_UID, rawResult.getText());
+                        bundle.putDouble(KEY_SALDO, usr.getSaldo());
+                        mIntent.putExtras(bundle);
+                        System.out.println(usr.getEmail());
+                        System.out.println(usr.getUsername());
+                        System.out.println(usr.getSaldo());
+                        startActivity(mIntent);
+                        finish();
+                    }else{
+                        alert1.hide();
+                        AlertDialog alert2 = builder2.create();
+                        builder2.setTitle("Message");
+                        builder2.setMessage("QR code not match, please try again...");
+                        alert2=builder2.create();
+                        alert2.show();
+                        onResume();
+                    }
                 }
             },3000);
         }catch (Exception e){
             System.out.println(e);
+            System.out.println("====================================================");
+            alert1.hide();
+            AlertDialog alert2 = builder2.create();
+            builder2.setTitle("Message");
+            builder2.setMessage("QR code not match, please try again...");
+            alert2=builder2.create();
+            alert2.show();
+            onResume();
         }
         mScannerView.resumeCameraPreview(this);
 
