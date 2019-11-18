@@ -30,7 +30,8 @@ public class Code_activity extends AppCompatActivity {
 
         PFLockScreenFragment fragment = new PFLockScreenFragment();
         PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-                .setMode(PFFLockScreenConfiguration.MODE_CREATE);
+                .setMode(PFFLockScreenConfiguration.MODE_CREATE).setCodeLength(6)
+                .setTitle("set security code");
         fragment.setConfiguration(builder.build());
 
         fragment.setCodeCreateListener(mCodeCreateListener);
@@ -38,12 +39,26 @@ public class Code_activity extends AppCompatActivity {
                 .replace(R.id.container_view, fragment).commit();
     }
 
-    private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
-            new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
-                @Override
-                public void onCodeCreated(String encodedCode) {
+    private void check(){
 
-                    code = encodedCode;
+        PFLockScreenFragment fragment = new PFLockScreenFragment();
+        PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
+                .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                .setCodeLength(6)
+                .setTitle("confirm security code");
+        fragment.setConfiguration(builder.build());
+        fragment.setEncodedPinCode(code);
+        fragment.setLoginListener(mLoginListener);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_view, fragment).commit();
+    }
+
+    private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+            new PFLockScreenFragment.OnPFLockScreenLoginListener() {
+                @Override
+                public void onCodeInputSuccessful() {
+
                     user.setPin(code);
                     FirebaseDatabase.getInstance().getReference("users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -59,6 +74,36 @@ public class Code_activity extends AppCompatActivity {
                             }
                         }
                     });
+
+                }
+
+                @Override
+                public void onFingerprintSuccessful() {
+
+                }
+
+                @Override
+                public void onPinLoginFailed() {
+
+                    Toast.makeText(Code_activity.this, "pin tidak sama",
+                            Toast.LENGTH_LONG).show();
+
+                }
+
+                @Override
+                public void onFingerprintLoginFailed() {
+
+                }
+            };
+
+    private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
+            new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
+                @Override
+                public void onCodeCreated(String encodedCode) {
+
+                    code = encodedCode;
+
+                    check();
                 }
             };
 }
