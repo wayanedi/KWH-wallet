@@ -1,21 +1,35 @@
 package com.example.kwh_wallet.controller;
 
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+
+import android.content.IntentFilter;
 import android.icu.text.DecimalFormat;
+
+
 import android.os.Bundle;
-import android.os.Parcelable;
+
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View;
+
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.kwh_wallet.NotificationService.TransferNotificationService;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,9 +37,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 
 public class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -35,6 +52,13 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
     private FirebaseUser firebaseUser;
     private TextView price;
     private User user;
+
+    private Double oldSaldo;
+    private Double newSaldo;
+
+    private BroadcastReceiver minuteUpdateReceiver;
+    private int counter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +103,27 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }       
+
     private void getSaldo(){
                 Query query = FirebaseDatabase.getInstance().getReference("users")
                         .orderByChild("email").equalTo(firebaseUser.getEmail());
@@ -103,7 +148,12 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                     price.setText(String.format("%,.0f", user.getSaldo()));
                     price.setVisibility(View.VISIBLE);
                     price.bringToFront();
-
+                    if(oldSaldo == null){
+                        oldSaldo = user.getSaldo();
+                    }else{
+                        newSaldo = user.getSaldo();
+                        startService();
+                    }
                     System.out.println("saldo user: " + user.getSaldo());
                 }
 
@@ -144,5 +194,56 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
         }
         return loadFragment(fragment);
+    }
+
+    //Notification
+
+    public void startService(){
+        if(newSaldo > oldSaldo){
+            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+            serviceIntent.putExtra("inputExtra", "Anda telah menerima Transfer sebesar Rp "+String.valueOf((newSaldo-oldSaldo)));
+
+            ContextCompat.startForegroundService(this, serviceIntent);
+            oldSaldo = newSaldo;
+            newSaldo = null;
+        }
+        else if(newSaldo == oldSaldo){
+            newSaldo = null;
+        }
+        else if(oldSaldo > newSaldo){
+            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+            serviceIntent.putExtra("inputExtra", "Anda telah melakukan Transfer sebesar Rp "+String.valueOf((oldSaldo-newSaldo)));
+
+            ContextCompat.startForegroundService(this, serviceIntent);
+            oldSaldo = newSaldo;
+            newSaldo = null;
+        }
+    }
+
+    //AutoRefresh
+
+    public void startMinuteUpdater() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
+        minuteUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                counter++;
+            }
+        };
+
+        registerReceiver(minuteUpdateReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startMinuteUpdater();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(minuteUpdateReceiver);
     }
 }

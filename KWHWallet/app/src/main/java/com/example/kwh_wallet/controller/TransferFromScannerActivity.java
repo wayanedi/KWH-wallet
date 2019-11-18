@@ -2,12 +2,10 @@ package com.example.kwh_wallet.controller;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,43 +25,50 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-public class TransferActivity extends AppCompatActivity {
+public class TransferFromScannerActivity extends AppCompatActivity {
+    TextView usr;
     private double current_saldo = 0;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    private DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transfer_activity);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.transfer_from_scanner);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        final EditText email = findViewById(R.id.email);
-        checkSaldo(firebaseUser.getEmail());
 
+        Bundle extras = getIntent().getExtras();
+        final String email = extras.getString(ScannerActivity.KEY_EMAIL);
+        Double saldo = extras.getDouble(ScannerActivity.KEY_SALDO);
+        String username = extras.getString(ScannerActivity.KEY_USERNAME);
+        String key = extras.getString(ScannerActivity.KEY_UID);
+        System.out.println(email);
+        System.out.println("test" + username);
 
+        if (extras == null) {
+        } else {
+            usr = findViewById(R.id.username);
+            checkSaldo(firebaseUser.getEmail());
+            usr.setText("Trasfer ke: " + username);
+        }
 
-        ImageView back = findViewById(R.id.backBtn);
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 finish();
             }
         });
+//
 
         Button transfer = findViewById(R.id.transfer);
         transfer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(email.getText().toString().equals(firebaseUser.getEmail()))
-                    Toast.makeText(getApplication(), "Tidak bisa transfer ke rekening sendiri!", Toast.LENGTH_SHORT).show();
-                else
-                    selectData(email.getText().toString());
+                if(email!=null)
+                selectData(email);
             }
         });
     }
@@ -100,7 +105,7 @@ public class TransferActivity extends AppCompatActivity {
                             Toast.makeText(getApplication(), "Saldo anda tidak mencukupi!", Toast.LENGTH_SHORT).show();
                     }
                     else
-                    Toast.makeText(getApplication(), "Saldo hanya boleh angka!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "Saldo hanya boleh angka!", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 Toast.makeText(getApplication(), "User tidak terdaftar!", Toast.LENGTH_SHORT).show();
@@ -193,5 +198,4 @@ public class TransferActivity extends AppCompatActivity {
         // menampilkan alert dialog
         alertDialog.show();
     }
-
 }

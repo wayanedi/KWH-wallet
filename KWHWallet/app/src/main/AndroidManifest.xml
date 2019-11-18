@@ -3,6 +3,7 @@
     package="com.example.kwh_wallet">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -59,14 +60,13 @@
         <activity
             android:name=".controller.SettingActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true"
+            android:parentActivityName=".controller.MenuActivity">
+        </activity>
+        <activity android:name=".controller.TransferActivity"
             android:parentActivityName=".controller.MenuActivity"
             android:resizeableActivity="true"></activity>
-        <activity
-            android:name=".controller.HistoryViewActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"></activity>
-        <activity
-            android:name=".controller.TransferActivity"
+        <activity android:name=".controller.TransferFromScannerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true"></activity>
         <activity
@@ -76,7 +76,11 @@
         <activity
             android:name=".controller.EditProfileActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
-            android:resizeableActivity="true"></activity>
+            android:resizeableActivity="true">
+        </activity>
+        <service android:name=".NotificationService.TransferNotificationService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>
