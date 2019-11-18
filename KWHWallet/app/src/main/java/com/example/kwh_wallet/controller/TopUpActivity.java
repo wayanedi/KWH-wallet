@@ -51,22 +51,6 @@ public class TopUpActivity extends AppCompatActivity {
 
         topupfield = findViewById(R.id.topupfield);
 
-        PFLockScreenFragment fragment = new PFLockScreenFragment();
-        PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-                .setMode(PFFLockScreenConfiguration.MODE_AUTH)
-                .setTitle("masukan security code anda")
-                .setCodeLength(6);
-        fragment.setConfiguration(builder.build());
-        fragment.setEncodedPinCode(user.getPin());
-        fragment.setLoginListener(mLoginListener);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container_view_topup, fragment).commit();
-
-    }
-
-    private void doTopup(){
-
         System.out.println("saldo:" + user.getSaldo());
 
         String getTopup = topupfield.getText().toString();
@@ -86,6 +70,24 @@ public class TopUpActivity extends AppCompatActivity {
 
         double saldo = user.getSaldo()+ Double.parseDouble(getTopup);
         user.setSaldo(saldo);
+
+
+        PFLockScreenFragment fragment = new PFLockScreenFragment();
+        PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
+                .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                .setTitle("masukan security code anda")
+                .setCodeLength(6);
+        fragment.setConfiguration(builder.build());
+        fragment.setEncodedPinCode(user.getPin());
+        fragment.setLoginListener(mLoginListener);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_view_topup, fragment).commit();
+
+    }
+
+    private void doTopup(){
+
 
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
