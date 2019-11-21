@@ -15,6 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,20 +31,33 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
+import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Method;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TransferActivity extends AppCompatActivity {
     private double current_saldo = 0;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     private DatabaseReference database;
+    private String FCM_API = "https;//fcm.googleapis.com/fcm/send";
+    RequestQueue mRequestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +67,7 @@ public class TransferActivity extends AppCompatActivity {
         final EditText email = findViewById(R.id.email);
         checkSaldo(firebaseUser.getEmail());
 
+        mRequestQueue = Volley.newRequestQueue(this);
 
 
         ImageView back = findViewById(R.id.backBtn);
@@ -169,6 +190,7 @@ public class TransferActivity extends AppCompatActivity {
     }
 
     private void showDialog(){
+        final EditText value = findViewById(R.id.value);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
@@ -182,7 +204,18 @@ public class TransferActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                        // jika tombol diklik, maka akan menutup activity ini
+                        // jika tombol diklik, maka akan menutup activity ini & Mengirimkan Notifdication
+                        JSONObject notification = new JSONObject();
+                        JSONObject notificationBody = new JSONObject();
+                        try{
+                           notificationBody.put("title","KWH-Wallet");
+                           notificationBody.put("body","Anda Telah menerima Transfer sebesar Rp."+Double.parseDouble(value.getText().toString()));
+                            notification.put("to","topic");
+                            notification.put("data", notificationBody);
+                            sendNotification(notification);
+                        } catch(JSONException e){
+                            e.printStackTrace();
+                        }
                         finish();
                     }
                 });
@@ -192,6 +225,31 @@ public class TransferActivity extends AppCompatActivity {
 
         // menampilkan alert dialog
         alertDialog.show();
+    }
+
+    private void sendNotification(JSONObject notification){
+        Log.e("TAG", "sendNotification");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, FCM_API, notification, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("TAG", "onErrorResponse: Didn't Work");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<>();
+                header.put("content-type", "application/json");
+                header.put("authorization", "key=AIzaSyCnulFnxDZXCyicvKI69DTa-Jxc5c9e2VI");
+                return header;
+
+            }
+        };
+        mRequestQueue.add(request);
     }
 
 }

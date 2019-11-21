@@ -80,6 +80,15 @@
         </activity>
         <service android:name=".NotificationService.TransferNotificationService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".NotificationService.MyFirebaseMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.goolge.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
 
     </application>
 
