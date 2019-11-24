@@ -1,6 +1,6 @@
 package com.example.kwh_wallet.model;
 
-public class History {
+public class History implements Comparable<History> {
     private String tanggal;
     private String jumlah;
 
@@ -36,5 +36,13 @@ public class History {
 
     public void setJumlah(String jumlah) {
         this.jumlah = jumlah;
+    }
+
+    @Override
+    public int compareTo(History history) {
+        if (history.getTanggal() == null || this.getTanggal() == null) {
+            return 0;
+        }
+        return this.getTanggal().compareTo(history.getTanggal());
     }
 }
