@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kwh_wallet.R;
+import com.example.kwh_wallet.model.History;
 import com.example.kwh_wallet.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -160,12 +161,10 @@ public class TransferFromScannerActivity extends AppCompatActivity {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
             System.out.println(formatter.format(calendar.getTime()));
             DatabaseReference mDatabase;
-            mDatabase = FirebaseDatabase.getInstance().getReference("history");
             EditText value = findViewById(R.id.value);
-            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+value.getText().toString());
-            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("deskripsi").setValue("Transfer");
-//            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("from").setValue(firebaseUser.getDisplayName());
-//            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("to").setValue(firebaseUser.getDisplayName());
+            History history = new History(formatter.format(calendar.getTime()), "+ Rp. "+value.getText().toString(), "Transfer");
+            mDatabase = FirebaseDatabase.getInstance().getReference("history");
+            mDatabase.child(key).child(formatter.format(calendar.getTime())).setValue(history);
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
             showDialog();
         } catch (Exception e) {
