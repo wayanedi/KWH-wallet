@@ -158,8 +158,6 @@ public class TransferActivity extends AppCompatActivity {
 
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.container_view_transfer, fragment).commit();
-                            String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getDisplayName();
-                            sendNotification(key, message);
                         }
                         else
                             Toast.makeText(getApplication(), "Saldo anda tidak mencukupi!", Toast.LENGTH_SHORT).show();
@@ -262,9 +260,27 @@ public class TransferActivity extends AppCompatActivity {
                 public void onCodeInputSuccessful() {
                     Toast.makeText(TransferActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
+                    notify = true;
+                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getDisplayName();
+                    DatabaseReference database = FirebaseDatabase.getInstance().getReference("users").child(key_);
+                    database.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            if(notify){
+                                sendNotification(key_, user.getEmail(), message);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     updateSaldo(Double.parseDouble(value.getText().toString()) + user_.getSaldo(), key_, "+");
                     updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                     showDialog();
+
 //                    finish();
                 }
 
@@ -273,7 +289,9 @@ public class TransferActivity extends AppCompatActivity {
 
                 }
 
+
                 @Override
+                public void onPinLoginFailed() {
                     Toast.makeText(TransferActivity.this, "Pin salah",
                             Toast.LENGTH_LONG).show();
                 }
@@ -284,7 +302,7 @@ public class TransferActivity extends AppCompatActivity {
                 }
             };
 
-    public void sendNotification(final String recieverUid, final String message){
+    public void sendNotification(final String recieverUid, final String name, final String message){
         DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = allTokens.orderByKey().equalTo(recieverUid);
         query.addValueEventListener(new ValueEventListener() {
