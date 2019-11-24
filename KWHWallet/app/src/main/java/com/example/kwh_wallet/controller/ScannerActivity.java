@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -137,6 +138,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                         bundle.putString(KEY_USERNAME, usr.getUsername());
                         bundle.putString(KEY_UID, rawResult.getText());
                         bundle.putDouble(KEY_SALDO, usr.getSaldo());
+                        User user = new User(username, email);
+                        FirebaseDatabase.getInstance().getReference("list").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                         mIntent.putExtras(bundle);
                         System.out.println(usr.getEmail());
                         System.out.println(usr.getUsername());
