@@ -122,7 +122,11 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }       
+    }
+
+    public void friendList(View view){
+        loadFragment(new ListFragment());
+    }
 
     private void getSaldo(){
                 Query query = FirebaseDatabase.getInstance().getReference("users")
