@@ -40,6 +40,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     double saldo;
     String email;
     String pin;
+    private String key;
     private static final int REQUEST_PERMISSIONS=20;
     public static final String KEY_USERNAME="USERNAME";
     public static final String KEY_EMAIL="EMAIL";
@@ -101,7 +102,10 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int count = 0;
+                key = dataSnapshot.getKey();
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
+
+
 
                     if (count == 0)
                         email = datas.getValue().toString();
@@ -139,7 +143,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                         bundle.putString(KEY_UID, rawResult.getText());
                         bundle.putDouble(KEY_SALDO, usr.getSaldo());
                         User user = new User(username, email);
-                        FirebaseDatabase.getInstance().getReference("list").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+                        FirebaseDatabase.getInstance().getReference("list").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(key).setValue(user);
                         mIntent.putExtras(bundle);
                         System.out.println(usr.getEmail());
                         System.out.println(usr.getUsername());

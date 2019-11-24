@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,44 +24,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
-public class HistoryFragment extends Fragment {
+public class ListFragment extends Fragment {
+
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView ;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<History> listHistory=new ArrayList<History> ();
+    private ArrayList<User> listHistory=new ArrayList<User> ();
+
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.history_view, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.list_view, container, false);
+
         initDataset();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-            recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_history);
-            recyclerView.setHasFixedSize(true);
+                recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_list);
+                recyclerView.setHasFixedSize(true);
 
-            layoutManager = new LinearLayoutManager(view.getContext());
-            recyclerView.setLayoutManager(layoutManager);
-            Collections.sort(listHistory);
-            Collections.reverse(listHistory);
-            adapter = new HistoryAdapter(listHistory);
-            System.out.println("=============================ada===========================");
-            recyclerView.setAdapter(adapter);
-            view.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                view.findViewById(R.id.recycle_view_history).bringToFront();
+                layoutManager = new LinearLayoutManager(view.getContext());
+                recyclerView.setLayoutManager(layoutManager);
+                adapter = new ListAdapter(listHistory);
+                System.out.println("=============================ada===========================");
+                recyclerView.setAdapter(adapter);
+                view.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                view.findViewById(R.id.recycle_view_list).bringToFront();
             }
         },1500);
 
@@ -78,40 +72,35 @@ public class HistoryFragment extends Fragment {
                 }, 2000);
             }
         });
+
+
         return view;
-
     }
 
-    private void initDataset(){
 
-    getData();
-        System.out.println(listHistory.size());
-    }
 
-    private void getData() {
+    private void initDataset() {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("history")
+        Query query = FirebaseDatabase.getInstance().getReference("list")
                 .child(firebaseUser.getUid());
-        query.addListenerForSingleValueEvent(valueEventListener2);
+        query.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    ValueEventListener valueEventListener2 = new ValueEventListener() {
+    ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if(dataSnapshot.exists()){
-                History test;
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    test = snapshot.getValue(History.class);
-                    System.out.println(test.getDeskripsi());
-                    System.out.println(test.getJumlah());
-                    System.out.println(test.getTanggal());
 
+            if(dataSnapshot.exists()){
+                User test;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    test = snapshot.getValue(User.class);
                     listHistory.add(test);
                 }
             }else{
                 System.out.println("tidak ada");
             }
+
         }
 
         @Override

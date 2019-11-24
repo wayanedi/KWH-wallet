@@ -103,6 +103,7 @@
                         android:paddingTop="25dp"
                         android:layout_gravity="center"
                         android:text="List Teman"
+                        android:onClick="friendList"
                         android:textColor="@color/colorOrange"
                         android:textStyle="bold"
                         android:textAlignment="center">
