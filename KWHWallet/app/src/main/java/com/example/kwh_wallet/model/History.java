@@ -6,6 +6,8 @@ public class History {
 
     private String deskripsi;
 
+    public History(){}
+
     public History(String tanggal,String jumlah, String deskripsi){
         setTanggal(tanggal);
         setJumlah(jumlah);
