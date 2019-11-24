@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
+import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.History;
 import com.example.kwh_wallet.model.User;
@@ -33,7 +36,11 @@ public class TransferFromScannerActivity extends AppCompatActivity {
     private double current_saldo = 0;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    private String key_ = "";
+    private User user_ = new User();
+    private String pin = "";
 
+    EditText value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,36 +49,44 @@ public class TransferFromScannerActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+
         Bundle extras = getIntent().getExtras();
-        final String email = extras.getString(ScannerActivity.KEY_EMAIL);
         Double saldo = extras.getDouble(ScannerActivity.KEY_SALDO);
-        String username = extras.getString(ScannerActivity.KEY_USERNAME);
+        final String username = extras.getString(ScannerActivity.KEY_USERNAME);
         String key = extras.getString(ScannerActivity.KEY_UID);
-        System.out.println(email);
         System.out.println("test" + username);
 
         if (extras == null) {
         } else {
-            usr = findViewById(R.id.username);
             checkSaldo(firebaseUser.getEmail());
-            usr.setText("Trasfer ke: " + username);
         }
 
-        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-//
+            public void run() {
+            Bundle bundle = new Bundle();
 
-        Button transfer = findViewById(R.id.transfer);
-        transfer.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(email!=null)
-                selectData(email);
+            TransferFromScannerFragment fragInfo = new TransferFromScannerFragment();
+            bundle.putDouble("saldo", current_saldo);
+            bundle.putString("username", username);
+            fragInfo.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_view_transfer_scanner, fragInfo).commit();
             }
-        });
+        },2000);
+    }
+
+    public void kembali(View view){
+        finish();
+    }
+
+    public void transfer(View view){
+        Bundle extras = getIntent().getExtras();
+        value = findViewById(R.id.value);
+        String email = extras.getString(ScannerActivity.KEY_EMAIL);
+        if(email!=null)
+            selectData(email);
     }
 
     private void selectData(String email) {
@@ -91,7 +106,6 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                     String key = snapshot.getKey();
                     User user = snapshot.getValue(User.class);
                     System.out.println("email user " + user.getEmail() +"saldo user: " + user.getSaldo());
-                    EditText value = findViewById(R.id.value);
                     if(value.getText().toString().isEmpty())
                         Toast.makeText(getApplication(), "Saldo tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     else if(value.getText().toString().matches("\\d+")) {
@@ -99,8 +113,18 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                         if(Double.parseDouble(value.getText().toString())<10000)
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
-                            updateSaldo(Double.parseDouble(value.getText().toString()) + user.getSaldo(), key, "+");
-                            updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+
+                            PFLockScreenFragment fragment = new PFLockScreenFragment();
+                            PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(TransferFromScannerActivity.this)
+                                    .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                                    .setTitle("Masukan security code anda")
+                                    .setCodeLength(6);
+                            fragment.setConfiguration(builder.build());
+                            fragment.setEncodedPinCode(pin);
+                            fragment.setLoginListener(mLoginListener);
+
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container_view_transfer_scanner, fragment).commit();
                         }
                         else
                             Toast.makeText(getApplication(), "Saldo anda tidak mencukupi!", Toast.LENGTH_SHORT).show();
@@ -135,10 +159,8 @@ public class TransferFromScannerActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-
+                    pin= user.getPin();
                     current_saldo=user.getSaldo();
-                    TextView saldo = findViewById(R.id.saldo);
-                    saldo.setText(String.format("%,.0f", current_saldo));
                     System.out.println("saldo user: " + user.getSaldo());
                 }
             }else{
@@ -161,7 +183,6 @@ public class TransferFromScannerActivity extends AppCompatActivity {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
             System.out.println(formatter.format(calendar.getTime()));
             DatabaseReference mDatabase;
-            EditText value = findViewById(R.id.value);
             History history = new History(formatter.format(calendar.getTime()), "+ Rp. "+value.getText().toString(), "Transfer");
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
             mDatabase.child(key).child(formatter.format(calendar.getTime())).setValue(history);
@@ -197,4 +218,34 @@ public class TransferFromScannerActivity extends AppCompatActivity {
         // menampilkan alert dialog
         alertDialog.show();
     }
+
+    private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+            new PFLockScreenFragment.OnPFLockScreenLoginListener() {
+                @Override
+                public void onCodeInputSuccessful() {
+                    Toast.makeText(TransferFromScannerActivity.this, "Berhasil",
+                            Toast.LENGTH_LONG).show();
+                    updateSaldo(Double.parseDouble(value.getText().toString()) + user_.getSaldo(), key_, "+");
+                    updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+                    showDialog();
+//                    finish();
+                }
+
+                @Override
+                public void onFingerprintSuccessful() {
+
+                }
+
+                @Override
+                public void onPinLoginFailed() {
+                    Toast.makeText(TransferFromScannerActivity.this, "Pin salah",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFingerprintLoginFailed() {
+
+                }
+            };
+
 }

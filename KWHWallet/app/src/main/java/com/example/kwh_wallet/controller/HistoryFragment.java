@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class HistoryFragment extends Fragment {
     private RecyclerView recyclerView ;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<History> listHistory=new ArrayList<History> ();
+    private ArrayList<History> listHistory=new ArrayList<History> ();
 
     @Nullable
     @Override
@@ -55,7 +56,8 @@ public class HistoryFragment extends Fragment {
 
             layoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(layoutManager);
-
+            Collections.sort(listHistory);
+            Collections.reverse(listHistory);
             adapter = new HistoryAdapter(listHistory);
             System.out.println("=============================ada===========================");
             recyclerView.setAdapter(adapter);

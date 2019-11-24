@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
-    private List<History> historyList = new ArrayList<History>();
-    public HistoryAdapter(List<History> inputData){
+    private ArrayList<History> historyList = new ArrayList<History>();
+    public HistoryAdapter(ArrayList<History> inputData){
         this.historyList=inputData;
         System.out.println("==========================================" + historyList.size());
     }
