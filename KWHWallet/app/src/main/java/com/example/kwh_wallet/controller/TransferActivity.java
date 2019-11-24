@@ -3,13 +3,9 @@ package com.example.kwh_wallet.controller;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,15 +13,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.kwh_wallet.NotificationService.APIService;
-import com.example.kwh_wallet.NotificationService.Client;
 import com.example.kwh_wallet.NotificationService.Data;
-import com.example.kwh_wallet.NotificationService.Response;
 import com.example.kwh_wallet.NotificationService.Sender;
 import com.example.kwh_wallet.NotificationService.Token;
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
@@ -40,28 +33,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
-import com.google.gson.JsonObject;
+
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.EventListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class TransferActivity extends AppCompatActivity {
     private double current_saldo = -1;
@@ -74,9 +56,8 @@ public class TransferActivity extends AppCompatActivity {
     private String pin = "";
     private String FCM_API = "https;//fcm.googleapis.com/fcm/send";
 
-
+    private RequestQueue requestQueue;
     private String myUid;
-    APIService apiService;
     boolean notify = false;
 
     @Override
@@ -88,6 +69,7 @@ public class TransferActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         myUid = firebaseUser.getUid();
 
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         final EditText email = findViewById(R.id.email);
         checkSaldo(firebaseUser.getEmail());
@@ -312,18 +294,34 @@ public class TransferActivity extends AppCompatActivity {
                     Token token = ds.getValue(Token.class);
                     Data data = new Data(myUid, message, "KWH_Wallet Transfer", recieverUid, R.drawable.kwh_wallet_logo);
                     Sender sender = new Sender(data, token.getToken());
-                    apiService.sendNotification(sender).enqueue(new Callback<Response>() {
-                        @Override
-                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                            Toast.makeText(TransferActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
 
-                        }
+                    //fcm json
+                    try{
+                        JSONObject senderJsonObject = new JSONObject(new Gson().toJson(sender));
+                        JsonObjectRequest request = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObject, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
+                            }
+                        }){
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> headers =  new HashMap<>();
+                                headers.put("Content-Type", "application/json");
+                                headers.put("Authorization", "key=AAAA_Gth1k4:APA91bEoQj3rrz3QtJvMBxUVGF2qYHCuQFwtzmyCh1p4Vdfv9xWwXZ0J9sXTzhbYzMWbAPiRIODW5YhmRvvUPSRu2UyQ0FOgO77lSXCoBEHeZ4_R6NgjT4nRC0uFqz-KonKQd4lIDb3o");
 
-                        @Override
-                        public void onFailure(Call<Response> call, Throwable t) {
-                            System.out.println("ASU");
-                        }
-                    });
+                                return super.getHeaders();
+                            }
+                        };
+                        requestQueue.add(request);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             }
 

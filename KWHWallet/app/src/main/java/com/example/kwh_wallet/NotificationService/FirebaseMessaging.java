@@ -29,9 +29,8 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String tokenRefresh = FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken();
         if(user != null){
-            updateToken(tokenRefresh);
+            updateToken(s);
         }
     }
 
