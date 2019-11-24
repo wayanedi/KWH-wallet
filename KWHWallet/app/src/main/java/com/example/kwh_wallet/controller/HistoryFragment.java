@@ -98,44 +98,47 @@ public class HistoryFragment extends Fragment {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if(dataSnapshot.exists()){
-
+                History test;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    System.out.println("value :"+ snapshot.getValue());
-                    String str = snapshot.getValue().toString();
-                    String newStr=str.replace("{","");
-                    String newStr2=newStr.replace("}","");
-//                    System.out.println(newStr2);
-                    String[] arrOfStr = newStr2.split("jumlah=");
-                    String s="";
-                    for (int i=0;i<arrOfStr.length;i++){
-                        s+=arrOfStr[i];
-                    }
-
-                    String[] fixedStr = s.split(", deskripsi=");
-                    System.out.println(fixedStr[1]);
-                    System.out.println(fixedStr[0]);
-                    System.out.println("key: "+ snapshot.getKey());
-                    String[] tgl = snapshot.getKey().split("_");
-                    String pattern = "dd-MM-yyyy";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//===================================================================================
-                    String sTot=fixedStr[0];
-                    String sTotFinal = sTot.substring(2,sTot.length());
-
-                    System.out.println("ini Stot =====================================" );
-//                    for (int i=0;i<fixedStr[0]length;i++){
+                    test = snapshot.getValue(History.class);
+                    System.out.println(test.getDeskripsi());
+                    System.out.println(test.getJumlah());
+                    System.out.println(test.getTanggal());
+//                    String str = snapshot.getValue().toString();
+//                    String newStr=str.replace("{","");
+//                    String newStr2=newStr.replace("}","");
+////                    System.out.println(newStr2);
+//                    String[] arrOfStr = newStr2.split("jumlah=");
+//                    String s="";
+//                    for (int i=0;i<arrOfStr.length;i++){
 //                        s+=arrOfStr[i];
 //                    }
-                    String sTgl="";
-                        sTgl+=tgl[0];
-                    Date date = null;
-                    try {
-                        date = simpleDateFormat.parse(sTgl);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    History history = new History(date.toString().substring(0,10),sTot.substring(0,2) +"Rp. "+ String.format("%,.0f", Double.parseDouble(sTotFinal)),fixedStr[1]);
-                    listHistory.add(history);
+//
+//                    String[] fixedStr = s.split(", deskripsi=");
+//                    System.out.println(fixedStr[1]);
+//                    System.out.println(fixedStr[0]);
+//                    System.out.println("key: "+ snapshot.getKey());
+//                    String[] tgl = snapshot.getKey().split("_");
+//                    String pattern = "dd-MM-yyyy";
+//                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+////===================================================================================
+//                    String sTot=fixedStr[0];
+//                    String sTotFinal = sTot.substring(2,sTot.length());
+//
+//                    System.out.println("ini Stot =====================================" );
+////                    for (int i=0;i<fixedStr[0]length;i++){
+////                        s+=arrOfStr[i];
+////                    }
+//                    String sTgl="";
+//                        sTgl+=tgl[0];
+//                    Date date = null;
+//                    try {
+//                        date = simpleDateFormat.parse(sTgl);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                    History history = new History(date.toString().substring(0,10),sTot.substring(0,2) +"Rp. "+ String.format("%,.0f", Double.parseDouble(sTotFinal)),fixedStr[1]);
+                    listHistory.add(test);
                 }
             }else{
                 System.out.println("tidak ada");
