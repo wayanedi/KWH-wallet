@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
+import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,38 +37,51 @@ import java.util.Date;
 import java.util.List;
 
 public class TransferActivity extends AppCompatActivity {
-    private double current_saldo = 0;
+    private double current_saldo = -1;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    EditText value;
+    private String key_ = "";
+    private User user_ = new User();
     private DatabaseReference database;
+    private String pin = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transfer_activity);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        final EditText email = findViewById(R.id.email);
         checkSaldo(firebaseUser.getEmail());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+            Bundle bundle = new Bundle();
 
+            TransferFragment fragInfo = new TransferFragment();
+            bundle.putDouble("saldo", current_saldo);
+            fragInfo.setArguments(bundle);
 
-
-        ImageView back = findViewById(R.id.backBtn);
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_view_transfer, fragInfo).commit();
             }
-        });
+        },3000);
 
-        Button transfer = findViewById(R.id.transfer);
-        transfer.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+    }
 
-                if(email.getText().toString().equals(firebaseUser.getEmail()))
-                    Toast.makeText(getApplication(), "Tidak bisa transfer ke rekening sendiri!", Toast.LENGTH_SHORT).show();
-                else
-                    selectData(email.getText().toString());
-            }
-        });
+    public void transfer(View view){
+
+        value = findViewById(R.id.value);
+        System.out.println(value.getText().toString());
+        final EditText email = findViewById(R.id.email);
+        if(email.getText().toString().equals(firebaseUser.getEmail()))
+            Toast.makeText(getApplication(), "Tidak bisa transfer ke rekening sendiri!", Toast.LENGTH_SHORT).show();
+        else
+            selectData(email.getText().toString());
+    }
+
+    public void kembali(View view){
+        finish();
     }
 
     private void selectData(String email) {
@@ -82,10 +98,9 @@ public class TransferActivity extends AppCompatActivity {
                 System.out.println("ada data nya");
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String key = snapshot.getKey();
-                    User user = snapshot.getValue(User.class);
-                    System.out.println("email user " + user.getEmail() +"saldo user: " + user.getSaldo());
-                    EditText value = findViewById(R.id.value);
+                    key_ = snapshot.getKey();
+                    user_ = snapshot.getValue(User.class);
+                    System.out.println("email user " + user_.getEmail() +"saldo user: " + user_.getSaldo());
                     if(value.getText().toString().isEmpty())
                         Toast.makeText(getApplication(), "Saldo tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     else if(value.getText().toString().matches("\\d+")) {
@@ -93,8 +108,18 @@ public class TransferActivity extends AppCompatActivity {
                         if(Double.parseDouble(value.getText().toString())<10000)
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
-                            updateSaldo(Double.parseDouble(value.getText().toString()) + user.getSaldo(), key, "+");
-                            updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+//                            System.out.println(pin);
+                            PFLockScreenFragment fragment = new PFLockScreenFragment();
+                            PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(TransferActivity.this)
+                                    .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                                    .setTitle("Masukan security code anda")
+                                    .setCodeLength(6);
+                            fragment.setConfiguration(builder.build());
+                            fragment.setEncodedPinCode(pin);
+                            fragment.setLoginListener(mLoginListener);
+
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container_view_transfer, fragment).commit();
                         }
                         else
                             Toast.makeText(getApplication(), "Saldo anda tidak mencukupi!", Toast.LENGTH_SHORT).show();
@@ -129,10 +154,8 @@ public class TransferActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-
+                    pin = user.getPin();
                     current_saldo=user.getSaldo();
-                    TextView saldo = findViewById(R.id.saldo);
-                    saldo.setText(String.format("%,.0f", current_saldo));
                     System.out.println("saldo user: " + user.getSaldo());
                 }
             }else{
@@ -156,13 +179,12 @@ public class TransferActivity extends AppCompatActivity {
             System.out.println(formatter.format(calendar.getTime()));
             DatabaseReference mDatabase;
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
-            EditText value = findViewById(R.id.value);
             mDatabase.child(key).child(formatter.format(calendar.getTime())).child("jumlah").setValue(stats+" "+value.getText().toString());
             mDatabase.child(key).child(formatter.format(calendar.getTime())).child("deskripsi").setValue("Transfer");
 //            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("from").setValue(firebaseUser.getDisplayName());
 //            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("to").setValue(firebaseUser.getDisplayName());
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
-            showDialog();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,5 +215,34 @@ public class TransferActivity extends AppCompatActivity {
         // menampilkan alert dialog
         alertDialog.show();
     }
+
+    private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+            new PFLockScreenFragment.OnPFLockScreenLoginListener() {
+                @Override
+                public void onCodeInputSuccessful() {
+                    Toast.makeText(TransferActivity.this, "Berhasil",
+                            Toast.LENGTH_LONG).show();
+                    updateSaldo(Double.parseDouble(value.getText().toString()) + user_.getSaldo(), key_, "+");
+                    updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+                    showDialog();
+//                    finish();
+                }
+
+                @Override
+                public void onFingerprintSuccessful() {
+
+                }
+
+                @Override
+                public void onPinLoginFailed() {
+                    Toast.makeText(TransferActivity.this, "Pin salah",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFingerprintLoginFailed() {
+
+                }
+            };
 
 }
