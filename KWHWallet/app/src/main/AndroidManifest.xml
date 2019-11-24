@@ -78,18 +78,14 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
-        <service android:name=".NotificationService.TransferNotificationService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".NotificationService.MyFirebaseMessagingService"
-            android:permission="com.google.android.c2dm.permission.SEND">
+
+        <service android:name=".NotificationService.FirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.goolge.firebase.MESSAGING_EVENT"/>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>

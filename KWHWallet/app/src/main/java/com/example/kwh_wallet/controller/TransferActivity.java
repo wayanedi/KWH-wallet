@@ -18,10 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.kwh_wallet.NotificationService.APIService;
+import com.example.kwh_wallet.NotificationService.Client;
+import com.example.kwh_wallet.NotificationService.Data;
+import com.example.kwh_wallet.NotificationService.Response;
+import com.example.kwh_wallet.NotificationService.Sender;
+import com.example.kwh_wallet.NotificationService.Token;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,9 +51,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class TransferActivity extends AppCompatActivity {
     private double current_saldo = 0;
@@ -56,7 +65,11 @@ public class TransferActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     private DatabaseReference database;
     private String FCM_API = "https;//fcm.googleapis.com/fcm/send";
-    RequestQueue mRequestQueue;
+
+
+    private String myUid;
+    APIService apiService;
+    boolean notify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +77,11 @@ public class TransferActivity extends AppCompatActivity {
         setContentView(R.layout.transfer_activity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        myUid = firebaseUser.getUid();
+
+
         final EditText email = findViewById(R.id.email);
         checkSaldo(firebaseUser.getEmail());
-
-        mRequestQueue = Volley.newRequestQueue(this);
-
 
         ImageView back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +100,7 @@ public class TransferActivity extends AppCompatActivity {
                     selectData(email.getText().toString());
             }
         });
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
     }
 
     private void selectData(String email) {
@@ -114,6 +128,8 @@ public class TransferActivity extends AppCompatActivity {
                         if(Double.parseDouble(value.getText().toString())<10000)
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
+                            String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getDisplayName();
+                            sendNotification(key, message);
                             updateSaldo(Double.parseDouble(value.getText().toString()) + user.getSaldo(), key, "+");
                             updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                         }
@@ -183,6 +199,7 @@ public class TransferActivity extends AppCompatActivity {
 //            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("from").setValue(firebaseUser.getDisplayName());
 //            mDatabase.child(key).child(formatter.format(calendar.getTime())).child("to").setValue(firebaseUser.getDisplayName());
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
+
             showDialog();
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,52 +221,49 @@ public class TransferActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                        // jika tombol diklik, maka akan menutup activity ini & Mengirimkan Notifdication
-                        JSONObject notification = new JSONObject();
-                        JSONObject notificationBody = new JSONObject();
-                        try{
-                           notificationBody.put("title","KWH-Wallet");
-                           notificationBody.put("body","Anda Telah menerima Transfer sebesar Rp."+Double.parseDouble(value.getText().toString()));
-                            notification.put("to","topic");
-                            notification.put("data", notificationBody);
-                            sendNotification(notification);
-                        } catch(JSONException e){
-                            e.printStackTrace();
-                        }
+                        // jika tombol diklik, maka akan menutup activity ini
                         finish();
                     }
                 });
 
         // membuat alert dialog dari builder
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.dismiss();
 
         // menampilkan alert dialog
         alertDialog.show();
     }
 
-    private void sendNotification(JSONObject notification){
-        Log.e("TAG", "sendNotification");
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, FCM_API, notification, new Response.Listener<JSONObject>() {
+    public void sendNotification(final String recieverUid, final String message){
+        DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allTokens.orderByKey().equalTo(recieverUid);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(myUid, message, "KWH_Wallet Transfer", recieverUid, R.drawable.kwh_wallet_logo);
+                    Sender sender = new Sender(data, token.getToken());
+                    apiService.sendNotification(sender).enqueue(new Callback<Response>() {
+                        @Override
+                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                            Toast.makeText(TransferActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("TAG", "onErrorResponse: Didn't Work");
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<>();
-                header.put("content-type", "application/json");
-                header.put("authorization", "key=AIzaSyCnulFnxDZXCyicvKI69DTa-Jxc5c9e2VI");
-                return header;
+                        }
 
+                        @Override
+                        public void onFailure(Call<Response> call, Throwable t) {
+                            System.out.println("ASU");
+                        }
+                    });
+                }
             }
-        };
-        mRequestQueue.add(request);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("BAJINGAN");
+            }
+        });
     }
 
 }
