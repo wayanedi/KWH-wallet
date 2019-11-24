@@ -57,14 +57,14 @@ public class TransferActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-            Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
 
-            TransferFragment fragInfo = new TransferFragment();
-            bundle.putDouble("saldo", current_saldo);
-            fragInfo.setArguments(bundle);
+                TransferFragment fragInfo = new TransferFragment();
+                bundle.putDouble("saldo", current_saldo);
+                fragInfo.setArguments(bundle);
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_view_transfer, fragInfo).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_view_transfer, fragInfo).commit();
             }
         },3000);
 
