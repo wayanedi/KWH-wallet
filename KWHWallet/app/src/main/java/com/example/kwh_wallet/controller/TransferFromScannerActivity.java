@@ -33,12 +33,14 @@ import java.util.Calendar;
 
 public class TransferFromScannerActivity extends AppCompatActivity {
     TextView usr;
+    private String key_penerima="";
     private double current_saldo = 0;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     private String key_ = "";
     private User user_ = new User();
     private String pin = "";
+    private double saldo_penerima=0;
 
     EditText value;
     @Override
@@ -85,6 +87,7 @@ public class TransferFromScannerActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         value = findViewById(R.id.value);
         String email = extras.getString(ScannerActivity.KEY_EMAIL);
+        System.out.println("Ini bagian transfer : " + email);
         if(email!=null)
             selectData(email);
     }
@@ -96,6 +99,8 @@ public class TransferFromScannerActivity extends AppCompatActivity {
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
+
+
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if(dataSnapshot.exists()){
@@ -103,9 +108,11 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                 System.out.println("ada data nya");
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String key = snapshot.getKey();
+                    key_penerima = snapshot.getKey();
                     User user = snapshot.getValue(User.class);
                     System.out.println("email user " + user.getEmail() +"saldo user: " + user.getSaldo());
+
+                    saldo_penerima = user.getSaldo();
                     if(value.getText().toString().isEmpty())
                         Toast.makeText(getApplication(), "Saldo tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     else if(value.getText().toString().matches("\\d+")) {
@@ -225,7 +232,9 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                 public void onCodeInputSuccessful() {
                     Toast.makeText(TransferFromScannerActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
-                    updateSaldo(Double.parseDouble(value.getText().toString()) + user_.getSaldo(), key_, "+");
+                    System.out.println("ini key : " + key_penerima);
+                    System.out.println();
+                    updateSaldo(Double.parseDouble(value.getText().toString()) + saldo_penerima, key_penerima, "+");
                     updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                     showDialog();
 //                    finish();
