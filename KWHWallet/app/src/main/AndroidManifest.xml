@@ -78,6 +78,11 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
+        <activity
+            android:name=".controller.PLN_payment"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true">
+        </activity>
         <service android:name=".NotificationService.TransferNotificationService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
