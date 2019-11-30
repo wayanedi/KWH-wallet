@@ -140,6 +140,10 @@ public class PLN_payment extends AppCompatActivity {
         }
     }
 
+    public void back(View view){
+        finish();
+    }
+
     private void getNominalList(){
         nominalPembayaran.add("Pilih Nominal");
         nominalPembayaran.add("Rp 20.000");
