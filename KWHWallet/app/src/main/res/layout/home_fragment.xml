@@ -164,7 +164,7 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:id="@+id/pdam"
+                            android:id="@+id/pulsa"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#fff"
@@ -186,7 +186,6 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:id="@+id/pulsa"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#fff"

@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.kwh_wallet.MainActivity;
 import com.example.kwh_wallet.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
@@ -64,6 +67,17 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, PusatBantuan.class));
+            }
+        });
+
+        findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                MenuActivity.fa.finish();
+                Intent login = new Intent(SettingActivity.this, Login.class);
+                startActivity(login);
             }
         });
     }

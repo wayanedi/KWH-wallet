@@ -1,6 +1,7 @@
 package com.example.kwh_wallet.controller;
 
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +61,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
     private TextView price;
     private User user;
 
+    public static Activity fa;
     private Double oldSaldo;
     private Double newSaldo;
 
@@ -70,6 +72,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fa = this;
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.menu_activity);

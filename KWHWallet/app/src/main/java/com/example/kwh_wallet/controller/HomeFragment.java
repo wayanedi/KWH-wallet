@@ -64,6 +64,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.pulsa).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), PulsaActivity.class);
+                startActivity(i);
+            }
+        });
+
         return view;
     }
 
@@ -72,6 +80,8 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
+
 
 
 }

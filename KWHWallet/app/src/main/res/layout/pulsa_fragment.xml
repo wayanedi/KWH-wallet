@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pulsa_fragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -24,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PLN"
+            android:text="PULSA"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat"
             android:textSize="24dp"
@@ -48,29 +49,13 @@
             android:orientation="horizontal"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp">
-
-            <RadioButton
-                android:id="@+id/Prabayar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Prabayar"
-                android:layout_weight="1"/>
-
-            <RadioButton
-                android:id="@+id/Pascabayar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Pascabayar"
-                android:layout_weight="1"/>
-
-        </RadioGroup>
+            android:layout_marginTop="30dp"/>
 
         <TextView
             android:id="@+id/nomorMeterLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomor Meter"
+            android:text="Nomor Telepon"
             android:layout_below="@+id/radioGroup"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="40dp"/>
@@ -81,9 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-
-            android:hint="Nomor Meter"
-            android:textColorHint="@color/colorOrangeDark"
+            android:inputType="numberSigned"
+            android:hint="08123212423"
+            android:textColorHint="@color/colorGray"
             android:layout_below="@+id/nomorMeterLabel"/>
 
         <TextView
@@ -96,7 +81,7 @@
             android:layout_marginLeft="40dp"/>
 
         <Spinner
-            android:id="@+id/nomimal"
+            android:id="@+id/nominal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nominalLabel"
@@ -109,12 +94,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sisa Saldo Anda: Rp. "
-            android:layout_below="@id/nomimal"
+            android:layout_below="@id/nominal"
             android:layout_marginLeft="40dp"
             android:textColor="@color/colorOrangeDark"/>
 
         <Button
-            android:id="@+id/BayarPln"
+            android:id="@+id/BayarPulsa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sisaSaldoLabel"
@@ -124,9 +109,8 @@
             android:paddingRight="50dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-            android:background="@drawable/button"/>
-
-
+            android:background="@drawable/button"
+            android:onClick="nextPembayaran"/>
     </RelativeLayout>
 
 
