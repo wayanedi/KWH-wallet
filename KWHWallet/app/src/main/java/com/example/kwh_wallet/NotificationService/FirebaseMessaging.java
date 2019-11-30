@@ -107,7 +107,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        OreoAndAboveNotification notification1 = new OreoAndAboveNotification((this));
+        OreoAndAboveNotification notification1 = new OreoAndAboveNotification(this);
         Notification.Builder builder =  notification1.getNotifications(title, body, pendingIntent, defSoundUri, icon);
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         int j = 0;
