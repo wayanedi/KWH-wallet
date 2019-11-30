@@ -1,6 +1,7 @@
 package com.example.kwh_wallet.controller;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -54,7 +55,6 @@ public class TransferActivity extends AppCompatActivity {
     private User user_ = new User();
     private DatabaseReference database;
     private String pin = "";
-    private String FCM_API = "https;//fcm.googleapis.com/fcm/send";
 
     private RequestQueue requestQueue;
     private String myUid;
@@ -285,15 +285,18 @@ public class TransferActivity extends AppCompatActivity {
                 }
             };
 
-    public void sendNotification(final String recieverUid, final String name, final String message){
+    public void sendNotification(String recieverUid, final String name, final String message){
         DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = allTokens.orderByKey().equalTo(recieverUid);
+        Intent i = getIntent();
+        recieverUid = i.getStringExtra("hisUid");
+        final String finalRecieverUid = recieverUid;
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, message, "KWH_Wallet Transfer", recieverUid, R.drawable.kwh_wallet_logo);
+                    Data data = new Data(myUid, message+";", "KWH_Wallet Transfer", finalRecieverUid, R.drawable.kwh_wallet_logo);
                     Sender sender = new Sender(data, token.getToken());
 
                     //fcm json
