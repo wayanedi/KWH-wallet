@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -88,8 +89,6 @@
         <activity android:name=".controller.PusatBantuan" />
         <activity android:name=".controller.PulsaActivity" />
 
-        <service android:name=".NotificationService.TransferNotificationService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <service android:name=".NotificationService.FirebaseMessaging"
             android:enabled="true"

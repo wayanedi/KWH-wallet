@@ -56,6 +56,8 @@ public class TransferActivity extends AppCompatActivity {
     private DatabaseReference database;
     private String pin = "";
 
+    String hisUid;
+
     private RequestQueue requestQueue;
     private String myUid;
     boolean notify = false;
@@ -70,6 +72,9 @@ public class TransferActivity extends AppCompatActivity {
         myUid = firebaseUser.getUid();
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        Intent i = getIntent();
+        hisUid = i.getStringExtra("hisUid");
 
         final EditText email = findViewById(R.id.email);
         checkSaldo(firebaseUser.getEmail());
@@ -119,6 +124,9 @@ public class TransferActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     key_ = snapshot.getKey();
+                    hisUid = snapshot.getKey();
+                    System.out.println(myUid);
+                    System.out.println(hisUid);
                     user_ = snapshot.getValue(User.class);
                     System.out.println("email user " + user_.getEmail() +"saldo user: " + user_.getSaldo());
                     if(value.getText().toString().isEmpty())
@@ -129,6 +137,7 @@ public class TransferActivity extends AppCompatActivity {
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
 //                            System.out.println(pin);
+                            notify = true;
                             PFLockScreenFragment fragment = new PFLockScreenFragment();
                             PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(TransferActivity.this)
                                     .setMode(PFFLockScreenConfiguration.MODE_AUTH)
@@ -242,15 +251,26 @@ public class TransferActivity extends AppCompatActivity {
                 public void onCodeInputSuccessful() {
                     Toast.makeText(TransferActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
-                    notify = true;
-                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getDisplayName();
-                    DatabaseReference database = FirebaseDatabase.getInstance().getReference("users").child(key_);
-                    database.addValueEventListener(new ValueEventListener() {
+
+                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getEmail();
+                    //HistoryTransfer
+                    System.out.println("INI UID HANDI: "+hisUid);
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("sender", myUid);
+                    hashMap.put("receiver", hisUid);
+                    hashMap.put("nominal", String.valueOf(Double.parseDouble(value.getText().toString())));
+                    mDatabase.child("Transfer").push().setValue(hashMap);
+                    DatabaseReference database = FirebaseDatabase.getInstance().getReference("users");
+                    DatabaseReference databaseData = database.child(firebaseUser.getUid());
+                    databaseData.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
+
                             if(notify){
-                                sendNotification(key_, user.getEmail(), message);
+                                System.out.println("BISA SAMPE SINI TERNYATA WKWKWKWK");
+                                sendNotification(hisUid, user.getEmail(), message);
                             }
                         }
 
@@ -285,20 +305,19 @@ public class TransferActivity extends AppCompatActivity {
                 }
             };
 
-    public void sendNotification(String recieverUid, final String name, final String message){
+    public void sendNotification(final String hisUid, final String name, final String message){
+        System.out.println("INI BAGIAN KIRIM NOTIFNYA CUY");
         DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
-        Query query = allTokens.orderByKey().equalTo(recieverUid);
-        Intent i = getIntent();
-        recieverUid = i.getStringExtra("hisUid");
-        final String finalRecieverUid = recieverUid;
+        Query query = allTokens.orderByKey().equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println("6");
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, message+";", "KWH_Wallet Transfer", finalRecieverUid, R.drawable.kwh_wallet_logo);
+                    Data data = new Data(myUid, message+";", "KWH_Wallet Transfer", hisUid, R.drawable.kwh_wallet_logo);
                     Sender sender = new Sender(data, token.getToken());
-
+                    System.out.println("1");
                     //fcm json
                     try{
                         JSONObject senderJsonObject = new JSONObject(new Gson().toJson(sender));
@@ -306,11 +325,13 @@ public class TransferActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
+                                System.out.println("2");
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
+                                System.out.println("3");
                             }
                         }){
                             @Override
@@ -318,12 +339,14 @@ public class TransferActivity extends AppCompatActivity {
                                 Map<String, String> headers =  new HashMap<>();
                                 headers.put("Content-Type", "application/json");
                                 headers.put("Authorization", "key=AAAA_Gth1k4:APA91bEoQj3rrz3QtJvMBxUVGF2qYHCuQFwtzmyCh1p4Vdfv9xWwXZ0J9sXTzhbYzMWbAPiRIODW5YhmRvvUPSRu2UyQ0FOgO77lSXCoBEHeZ4_R6NgjT4nRC0uFqz-KonKQd4lIDb3o");
-
-                                return super.getHeaders();
+                                System.out.println("4");
+                                return headers;
                             }
                         };
+                        System.out.println("4");
                         requestQueue.add(request);
                     }catch (JSONException e){
+                        System.out.println("5");
                         e.printStackTrace();
                     }
                 }

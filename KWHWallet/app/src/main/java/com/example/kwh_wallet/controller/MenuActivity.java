@@ -85,6 +85,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
         FirebaseMessaging.getInstance().subscribeToTopic("news");
 
+
         // inisialisasi BottomNavigaionView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
         // beri listener pada saat item/menu bottomnavigation terpilih
@@ -121,9 +122,20 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         token = task.getResult().getToken();
+                        updateToken(token);
                     }
                 });
-        updateToken(token);
+        getUserStatus();
+    }
+
+    private void getUserStatus(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        mUID = firebaseUser.getUid();
+        SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("Current_USERID", mUID);
+        editor.apply();
     }
 
 
@@ -252,21 +264,19 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
         Token mToken =  new Token(token);
         ref.child(mUID).setValue(mToken);
+        System.out.println(mToken.getToken());
     }
 
     //AutoRefresh
 
     public void startMinuteUpdater() {
-        SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("Current_USERID", mUID);
-        editor.apply();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        startMinuteUpdater();
+        getUserStatus();
 
     }
 
