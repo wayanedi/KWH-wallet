@@ -122,11 +122,18 @@ public class PasswordChangeActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    alertBuilder.setMessage("password berhasil di ganti !");
+                    alertBuilder.setMessage("password berhasil di ganti !").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            PasswordChangeActivity.this.finish();
+
+                        }
+                    });
                     AlertDialog alert = alertBuilder.create();
                     alert.setTitle("Information !");
                     alert.show();
-                    finish();
+
                 }
             }
         });
