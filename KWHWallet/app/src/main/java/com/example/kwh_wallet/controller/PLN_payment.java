@@ -48,6 +48,7 @@ public class PLN_payment extends AppCompatActivity {
     private int getNominal= 0;
     Dialog customDialog;
     int total;
+    String pembayaran;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -71,50 +72,53 @@ public class PLN_payment extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = findViewById(checkedId);
+                if(rb != null){
+                    pembayaran = String.valueOf(rb.getText());
+                }
             }
         });
 
         nomorMeter = findViewById(R.id.nomorMeter);
-
+        customDialog = new Dialog(this);
+        next =  findViewById(R.id.BayarPln);
     }
 
-    public void next(View v){
-        if(!nomorMeter.equals("")){
-            customDialog.setContentView(R.layout.confirm_pln_payment);
-//        TextView nomorMeterCD = customDialog.findViewById(R.id.nomorMeter);
-//        TextView namaPelangganCD = customDialog.findViewById(R.id.namapelanggan);
-//        TextView periodeCD = customDialog.findViewById(R.id.periode);
-//        TextView biayaTagihCD = customDialog.findViewById(R.id.biayatagihan);
-//        Calendar c = Calendar.getInstance();
-//        String[] monthName = {"January","February","March", "April", "May", "June", "July",
-//                "August", "September", "October", "November",
-//                "December"};
-//        String month = monthName[c.get(Calendar.MONTH)];
-//
-//        nomorMeterCD.setText(nomorMeter.getText());
-//        namaPelangganCD.setText(firebaseUser.getEmail());
-//        periodeCD.setText(month);
-//        biayaTagihCD.setText(String.valueOf(getNominal));
-//        total = getNominal+2000;
-            Button batal = customDialog.findViewById(R.id.Batalkan);
-            batal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    customDialog.dismiss();
-                }
-            });
+    public void nextPembayaran(View v){
+        customDialog.setContentView(R.layout.confirm_pln_payment);
+        TextView nomorMeterCD = customDialog.findViewById(R.id.nomorMeter);
+        TextView namaPelangganCD = customDialog.findViewById(R.id.namapelanggan);
+        TextView periodeCD = customDialog.findViewById(R.id.periode);
+        TextView biayaTagihCD = customDialog.findViewById(R.id.biayatagihan);
+        Calendar c = Calendar.getInstance();
+        String[] monthName = {"January","February","March", "April", "May", "June", "July",
+                "August", "September", "October", "November",
+                "December"};
+        String month = monthName[c.get(Calendar.MONTH)];
 
-            Button bayar = customDialog.findViewById(R.id.BayarPln);
-            bayar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateSaldo(current_saldo-Double.parseDouble(String.valueOf(total)), firebaseUser.getUid(), "-");
-                }
-            });
+        nomorMeterCD.setText(nomorMeter.getText());
+        namaPelangganCD.setText(firebaseUser.getEmail());
+        periodeCD.setText(month);
+        biayaTagihCD.setText("Rp. "+String.valueOf(getNominal));
+        total = getNominal+2000;
+        Button batal = customDialog.findViewById(R.id.Batalkan);
+        batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+            }
+        });
 
-            customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            customDialog.show();
-        }
+        Button bayar = customDialog.findViewById(R.id.BayarPln);
+        bayar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateSaldo(current_saldo-Double.parseDouble(String.valueOf(total)), firebaseUser.getUid(), "-");
+                finish();
+            }
+        });
+
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
 
     }
 
@@ -162,6 +166,7 @@ public class PLN_payment extends AppCompatActivity {
                             getNominal = (getNominal*10)+Integer.parseInt(String.valueOf(c));
                         }
                     }
+
                 }
             }
 

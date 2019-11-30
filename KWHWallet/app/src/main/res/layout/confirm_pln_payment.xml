@@ -2,10 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
-    android:layout_marginTop="80dp"
-    android:layout_marginBottom="80dp"
     android:background="@color/bgApp">
 
     <TextView
@@ -133,26 +129,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Konfirmasi"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
         android:background="@drawable/button"
-        android:layout_above="@id/Batalkan"/>
+        android:layout_below="@id/biaya"/>
 
     <Button
         android:id="@+id/Batalkan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Batalkan Pembayaran"
+        android:layout_below="@id/BayarPln"
         android:layout_marginTop="20dp"
+        android:text="Batalkan Pembayaran"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
-        android:background="@drawable/button"
-        android:layout_marginBottom="30dp"/>
+        android:background="@drawable/button" />
 
 </RelativeLayout>

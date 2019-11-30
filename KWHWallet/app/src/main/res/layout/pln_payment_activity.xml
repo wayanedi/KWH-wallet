@@ -125,7 +125,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:background="@drawable/button"
-            android:onClick="next"/>
+            android:onClick="nextPembayaran"/>
 
 
     </RelativeLayout>
