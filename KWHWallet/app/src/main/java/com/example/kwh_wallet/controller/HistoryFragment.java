@@ -103,10 +103,17 @@ public class HistoryFragment extends Fragment {
                 History test;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     test = snapshot.getValue(History.class);
+                    System.out.println("HISTORY========================================================");
                     System.out.println(test.getDeskripsi());
                     System.out.println(test.getJumlah());
                     System.out.println(test.getTanggal());
-
+                    String[] s = test.getTanggal().split("-");
+                    String date = s[0];
+                    String month = convertBulan(s[1]);
+                    String year = s[2].substring(0,4);
+                    String dFinal = date + " " + month + " " + year;
+//                    System.out.println(dFinal);
+                    test.setTanggal(dFinal);
                     listHistory.add(test);
                 }
             }else{
@@ -119,4 +126,31 @@ public class HistoryFragment extends Fragment {
 
         }
     };
+
+    public String convertBulan(String s){
+        if(s.equals("1")){
+            return "Januari";
+        }else if(s.equals("2")){
+            return "Febuari";
+        }else if(s.equals("3")){
+            return "Maret";
+        }else if(s.equals("4")){
+            return "April";
+        }else if(s.equals("5")){
+            return "Mei";
+        }else if(s.equals("6")){
+            return "Juni";
+        }else if(s.equals("7")){
+            return "Juli";
+        }else if(s.equals("8")){
+            return "Agustus";
+        }else if(s.equals("9")){
+            return "September";
+        }else if(s.equals("10")){
+            return "Oktober";
+        }else if(s.equals("11")){
+            return "Novermber";
+        }else
+            return "Desember";
+    }
 }
