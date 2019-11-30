@@ -38,7 +38,7 @@
         android:layout_below="@+id/toolbars"
         android:id="@+id/balance"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         android:background="@color/white">
 
         <RelativeLayout
@@ -78,10 +78,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/KWH_cash"
                 android:fontFamily="@font/montserrat"
-                android:text="56.000"
+                android:text=""
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorOrange"
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
@@ -90,7 +90,6 @@
             android:layout_below="@+id/saldoCon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Maksumal Saldo KWH Cash Rp 50.000.000"
             android:textColor="@color/black"
             android:textSize="10dp"
             android:gravity="center">

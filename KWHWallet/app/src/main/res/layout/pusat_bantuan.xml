@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgApp">
+
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/back"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pusat Bantuan"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="15dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/backBtn"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Service:\n\nEdi Sudarma         : 081545669787\nKukuh Nugroho    : 085444698785\nHandi Hermawan : 082155687987"
+            android:textSize="18dp"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

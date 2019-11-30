@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kwh_wallet.R;
 
+import org.w3c.dom.Text;
+
 public class SettingActivity extends AppCompatActivity {
-    Button ubahPw;
-    Button editPrfl;
+    TextView ubahPw;
+    TextView editPrfl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(ubahPassword);
             }
         });
+
         editPrfl = findViewById(R.id.editProfil);
         editPrfl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,5 +45,28 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(ubahProfile);
             }
         });
+
+        findViewById(R.id.tentangKWH).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, TentangActivity.class));
+            }
+        });
+
+        findViewById(R.id.kebijakanPrivasi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, KebijakanPrivasi.class));
+            }
+        });
+
+        findViewById(R.id.pusatBantuan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, PusatBantuan.class));
+            }
+        });
     }
+
+
 }
