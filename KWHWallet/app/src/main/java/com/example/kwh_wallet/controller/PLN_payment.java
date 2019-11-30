@@ -147,11 +147,7 @@ public class PLN_payment extends AppCompatActivity {
 
 
     }
-
-    private void checkPin(){
-
-    }
-
+    
     private void updateSaldo(double saldo, String key, String stats) {
         try {
             FirebaseDatabase.getInstance().getReference("users").child(key).child("saldo").setValue(saldo);
@@ -164,6 +160,7 @@ public class PLN_payment extends AppCompatActivity {
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
             mDatabase.child(key).child(formatter.format(calendar.getTime())).setValue(history);
             Toast.makeText(getApplication(), "pembayaran Berhasil", Toast.LENGTH_SHORT).show();
+            finish();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,6 +243,7 @@ public class PLN_payment extends AppCompatActivity {
                 @Override
                 public void onCodeInputSuccessful() {
 
+                    updateSaldo(current_saldo-Double.parseDouble(String.valueOf(total)), firebaseUser.getUid(), "-");
                     
                 }
 
