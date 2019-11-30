@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
-
+            android:inputType="number"
             android:hint="Nomor Meter"
             android:textColorHint="@color/colorOrangeDark"
             android:layout_below="@+id/nomorMeterLabel"/>

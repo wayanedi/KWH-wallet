@@ -30,7 +30,7 @@ public class Code_activity extends AppCompatActivity {
 
         PFLockScreenFragment fragment = new PFLockScreenFragment();
         PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-                .setMode(PFFLockScreenConfiguration.MODE_CREATE).setCodeLength(6)
+                .setMode(PFFLockScreenConfiguration.MODE_CREATE).setCodeLength(4)
                 .setTitle("set security code");
         fragment.setConfiguration(builder.build());
 
@@ -44,7 +44,7 @@ public class Code_activity extends AppCompatActivity {
         PFLockScreenFragment fragment = new PFLockScreenFragment();
         PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
                 .setMode(PFFLockScreenConfiguration.MODE_AUTH)
-                .setCodeLength(6)
+                .setCodeLength(4)
                 .setTitle("confirm security code");
         fragment.setConfiguration(builder.build());
         fragment.setEncodedPinCode(code);

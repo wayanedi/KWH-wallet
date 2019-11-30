@@ -133,7 +133,7 @@ public class TransferActivity extends AppCompatActivity {
                             PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(TransferActivity.this)
                                     .setMode(PFFLockScreenConfiguration.MODE_AUTH)
                                     .setTitle("Masukan security code anda")
-                                    .setCodeLength(6);
+                                    .setCodeLength(4);
                             fragment.setConfiguration(builder.build());
                             fragment.setEncodedPinCode(pin);
                             fragment.setLoginListener(mLoginListener);

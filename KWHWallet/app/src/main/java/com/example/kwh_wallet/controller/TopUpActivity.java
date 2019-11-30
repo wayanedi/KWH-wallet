@@ -86,7 +86,7 @@ public class TopUpActivity extends AppCompatActivity {
         PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
                 .setMode(PFFLockScreenConfiguration.MODE_AUTH)
                 .setTitle("masukan security code anda")
-                .setCodeLength(6);
+                .setCodeLength(4);
         fragment.setConfiguration(builder.build());
         fragment.setEncodedPinCode(user.getPin());
         fragment.setLoginListener(mLoginListener);

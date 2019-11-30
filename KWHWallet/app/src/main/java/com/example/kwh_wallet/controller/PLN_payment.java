@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
@@ -80,10 +81,30 @@ public class PLN_payment extends AppCompatActivity {
 
 
         final View coba = v;
-
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PLN_payment.this);
         Spinner mySpinner = (Spinner) findViewById(R.id.nomimal);
         String text = mySpinner.getSelectedItem().toString();
         System.out.println("spinner: " + text);
+
+        TextView getNomorMeter = findViewById(R.id.nomorMeter);
+
+        if(getNomorMeter.getText().toString().trim().isEmpty()){
+            alertBuilder.setMessage("Nomor meter tidak boleh kosong !");
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Warning !");
+            alert.show();
+            return;
+        }
+
+        if(text.equals("Pilih Nominal")){
+
+            alertBuilder.setMessage("Silahkan pilih Nominal !");
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Warning !");
+            alert.show();
+            return;
+
+        }
 
         for(int i=0 ; i<text.toString().length() ; i++){
             char c = text.toString().charAt(i);
@@ -129,9 +150,9 @@ public class PLN_payment extends AppCompatActivity {
                 PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(coba.getContext())
                         .setMode(PFFLockScreenConfiguration.MODE_AUTH)
                         .setTitle("masukan security code anda")
-                        .setCodeLength(6);
+                        .setCodeLength(4);
                 fragment.setConfiguration(builder.build());
-                fragment.setEncodedPinCode("F4zJ69ixo2Q+tAKJ/J70p+dW/8OKxocLRjelwbanPZ1NADerRw/5JF1UBPG86Ng9sC0LEm3yDrjhyRgIkp6KFYtnglWC3qcCGFEURZ2gSjQ9plo5vm6K6zXMHteekubUU4CEmc122v+TbUVEy4brB/C9LdxOjLnHymKoR+XCUUKb3IqQU3HOA51/8dWP4kQXI8/7OHITD2+v4U8B/Bup9tOieQkrVuvzLqhLEya5Ws34Bm2+nEUeNme0qDXX4Xmrq44vLwphX9aKsLLbSSbfDFCdD1Wz7kX2fMasO28pZ1JAORKYG2d8WfVZOHQPqWp96VJOOWA0e3lava8dDHj10g==");
+                fragment.setEncodedPinCode(user.getPin());
                 fragment.setLoginListener(mLoginListener);
 
                 getSupportFragmentManager().beginTransaction()
