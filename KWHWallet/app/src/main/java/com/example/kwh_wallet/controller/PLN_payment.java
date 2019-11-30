@@ -67,19 +67,9 @@ public class PLN_payment extends AppCompatActivity {
         setContentView(R.layout.pln_payment_activity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        //getSaldo();
+        getSaldo();
 
-        PFLockScreenFragment fragment = new PFLockScreenFragment();
-        PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-                .setMode(PFFLockScreenConfiguration.MODE_AUTH)
-                .setTitle("masukan security code anda")
-                .setCodeLength(6);
-        fragment.setConfiguration(builder.build());
-        fragment.setEncodedPinCode("F4zJ69ixo2Q+tAKJ/J70p+dW/8OKxocLRjelwbanPZ1NADerRw/5JF1UBPG86Ng9sC0LEm3yDrjhyRgIkp6KFYtnglWC3qcCGFEURZ2gSjQ9plo5vm6K6zXMHteekubUU4CEmc122v+TbUVEy4brB/C9LdxOjLnHymKoR+XCUUKb3IqQU3HOA51/8dWP4kQXI8/7OHITD2+v4U8B/Bup9tOieQkrVuvzLqhLEya5Ws34Bm2+nEUeNme0qDXX4Xmrq44vLwphX9aKsLLbSSbfDFCdD1Wz7kX2fMasO28pZ1JAORKYG2d8WfVZOHQPqWp96VJOOWA0e3lava8dDHj10g==");
-        fragment.setLoginListener(mLoginListener);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container_view_pln, fragment).commit();
 
     }
 
@@ -89,60 +79,71 @@ public class PLN_payment extends AppCompatActivity {
         System.out.println("pin pln: " + user.getPin());
 
 
-//        final View coba = v;
-//
-//        Spinner mySpinner = (Spinner) findViewById(R.id.nomimal);
-//        String text = mySpinner.getSelectedItem().toString();
-//        System.out.println("spinner: " + text);
-//
-//        for(int i=0 ; i<text.toString().length() ; i++){
-//            char c = text.toString().charAt(i);
-//            if(Character.isDigit(c)){
-//                getNominal = (getNominal*10)+Integer.parseInt(String.valueOf(c));
-//            }
-//        }
-//
-//        customDialog = new Dialog(v.getContext());
-//        nomorMeter = findViewById(R.id.nomorMeter);
-//        customDialog.setContentView(R.layout.confirm_pln_payment);
-//        TextView nomorMeterCD = customDialog.findViewById(R.id.nomorMeter);
-//        TextView namaPelangganCD = customDialog.findViewById(R.id.namapelanggan);
-//        TextView periodeCD = customDialog.findViewById(R.id.periode);
-//        TextView biayaTagihCD = customDialog.findViewById(R.id.biayatagihan);
-//        Calendar c = Calendar.getInstance();
-//        String[] monthName = {"January","February","March", "April", "May", "June", "July",
-//                "August", "September", "October", "November",
-//                "December"};
-//        String month = monthName[c.get(Calendar.MONTH)];
-//
-//        nomorMeterCD.setText(nomorMeter.getText());
-//        namaPelangganCD.setText(firebaseUser.getEmail());
-//        periodeCD.setText(month);
-//        biayaTagihCD.setText("Rp. "+String.valueOf(getNominal));
-//        total = getNominal+2000;
-//        Button batal = customDialog.findViewById(R.id.Batalkan);
-//        batal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                customDialog.dismiss();
-//                actionNext = false;
-//            }
-//        });
-//
-//        Button bayar = customDialog.findViewById(R.id.BayarPln);
-//        bayar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                customDialog.dismiss();
-//
-//
-//            }
-//        });
-//
-//        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        customDialog.show();
-//        System.out.println("tess dong");
+        final View coba = v;
+
+        Spinner mySpinner = (Spinner) findViewById(R.id.nomimal);
+        String text = mySpinner.getSelectedItem().toString();
+        System.out.println("spinner: " + text);
+
+        for(int i=0 ; i<text.toString().length() ; i++){
+            char c = text.toString().charAt(i);
+            if(Character.isDigit(c)){
+                getNominal = (getNominal*10)+Integer.parseInt(String.valueOf(c));
+            }
+        }
+
+        customDialog = new Dialog(v.getContext());
+        nomorMeter = findViewById(R.id.nomorMeter);
+        customDialog.setContentView(R.layout.confirm_pln_payment);
+        TextView nomorMeterCD = customDialog.findViewById(R.id.nomorMeter);
+        TextView namaPelangganCD = customDialog.findViewById(R.id.namapelanggan);
+        TextView periodeCD = customDialog.findViewById(R.id.periode);
+        TextView biayaTagihCD = customDialog.findViewById(R.id.biayatagihan);
+        Calendar c = Calendar.getInstance();
+        String[] monthName = {"January","February","March", "April", "May", "June", "July",
+                "August", "September", "October", "November",
+                "December"};
+        String month = monthName[c.get(Calendar.MONTH)];
+
+        nomorMeterCD.setText(nomorMeter.getText());
+        namaPelangganCD.setText(firebaseUser.getEmail());
+        periodeCD.setText(month);
+        biayaTagihCD.setText("Rp. "+String.valueOf(getNominal));
+        total = getNominal+2000;
+        Button batal = customDialog.findViewById(R.id.Batalkan);
+        batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+                actionNext = false;
+            }
+        });
+
+        Button bayar = customDialog.findViewById(R.id.BayarPln);
+        bayar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                customDialog.dismiss();
+                PFLockScreenFragment fragment = new PFLockScreenFragment();
+                PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(coba.getContext())
+                        .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                        .setTitle("masukan security code anda")
+                        .setCodeLength(6);
+                fragment.setConfiguration(builder.build());
+                fragment.setEncodedPinCode("F4zJ69ixo2Q+tAKJ/J70p+dW/8OKxocLRjelwbanPZ1NADerRw/5JF1UBPG86Ng9sC0LEm3yDrjhyRgIkp6KFYtnglWC3qcCGFEURZ2gSjQ9plo5vm6K6zXMHteekubUU4CEmc122v+TbUVEy4brB/C9LdxOjLnHymKoR+XCUUKb3IqQU3HOA51/8dWP4kQXI8/7OHITD2+v4U8B/Bup9tOieQkrVuvzLqhLEya5Ws34Bm2+nEUeNme0qDXX4Xmrq44vLwphX9aKsLLbSSbfDFCdD1Wz7kX2fMasO28pZ1JAORKYG2d8WfVZOHQPqWp96VJOOWA0e3lava8dDHj10g==");
+                fragment.setLoginListener(mLoginListener);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_view_pln, fragment).commit();
+
+
+            }
+        });
+
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
+        System.out.println("tess dong");
 
 
     }
@@ -216,19 +217,19 @@ public class PLN_payment extends AppCompatActivity {
 
 
 
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Bundle bundle = new Bundle();
-//
-//                            Pln_payment_fragment fragInfo = new Pln_payment_fragment();
-//                            bundle.putDouble("saldo", current_saldo);
-//                            fragInfo.setArguments(bundle);
-//
-//                            getSupportFragmentManager().beginTransaction()
-//                                    .replace(R.id.container_view_pln, fragInfo).commit();
-//                        }
-//                    },1000);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Bundle bundle = new Bundle();
+
+                            Pln_payment_fragment fragInfo = new Pln_payment_fragment();
+                            bundle.putDouble("saldo", current_saldo);
+                            fragInfo.setArguments(bundle);
+
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container_view_pln, fragInfo).commit();
+                        }
+                    },1000);
                 }
 
             }
@@ -244,7 +245,8 @@ public class PLN_payment extends AppCompatActivity {
             new PFLockScreenFragment.OnPFLockScreenLoginListener() {
                 @Override
                 public void onCodeInputSuccessful() {
-                    System.out.println("pin sama");
+
+                    
                 }
 
                 @Override
