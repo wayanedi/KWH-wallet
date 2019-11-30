@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
 
 
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,20 +31,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.kwh_wallet.NotificationService.TransferNotificationService;
+import com.example.kwh_wallet.MainActivity;
+import com.example.kwh_wallet.NotificationService.Token;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -58,6 +65,8 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
     private BroadcastReceiver minuteUpdateReceiver;
     private int counter;
+    private String mUID;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +76,11 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         System.out.println(firebaseUser.getEmail());
+        mUID = firebaseUser.getUid();
         getSaldo();
         loadFragment(new HomeFragment());
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
 
         // inisialisasi BottomNavigaionView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
@@ -101,7 +113,16 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                 getSaldo();
             }
         });
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        token = task.getResult().getToken();
+                    }
+                });
+        updateToken(token);
     }
+
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -156,7 +177,7 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
                         oldSaldo = user.getSaldo();
                     }else{
                         newSaldo = user.getSaldo();
-                        startService();
+                        //startService();
                     }
                     System.out.println("saldo user: " + user.getSaldo());
                 }
@@ -202,52 +223,53 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
     //Notification
 
-    public void startService(){
-        if(newSaldo > oldSaldo){
-            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
-            serviceIntent.putExtra("inputExtra", "Anda telah menerima Transfer sebesar Rp "+String.valueOf((newSaldo-oldSaldo)));
+//    public void startService(){
+//        if(newSaldo > oldSaldo){
+//            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+//            serviceIntent.putExtra("inputExtra", "Anda telah menerima Transfer sebesar Rp "+String.valueOf((newSaldo-oldSaldo)));
+//
+//            ContextCompat.startForegroundService(this, serviceIntent);
+//            oldSaldo = newSaldo;
+//            newSaldo = null;
+//        }
+//        else if(newSaldo == oldSaldo){
+//            newSaldo = null;
+//        }
+//        else if(oldSaldo > newSaldo){
+//            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
+//            serviceIntent.putExtra("inputExtra", "Anda telah melakukan Transfer sebesar Rp "+String.valueOf((oldSaldo-newSaldo)));
+//
+//            ContextCompat.startForegroundService(this, serviceIntent);
+//            oldSaldo = newSaldo;
+//            newSaldo = null;
+//        }
+//    }
 
-            ContextCompat.startForegroundService(this, serviceIntent);
-            oldSaldo = newSaldo;
-            newSaldo = null;
-        }
-        else if(newSaldo == oldSaldo){
-            newSaldo = null;
-        }
-        else if(oldSaldo > newSaldo){
-            Intent serviceIntent = new Intent(this, TransferNotificationService.class);
-            serviceIntent.putExtra("inputExtra", "Anda telah melakukan Transfer sebesar Rp "+String.valueOf((oldSaldo-newSaldo)));
-
-            ContextCompat.startForegroundService(this, serviceIntent);
-            oldSaldo = newSaldo;
-            newSaldo = null;
-        }
+    public void updateToken(String token){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mToken =  new Token(token);
+        ref.child(mUID).setValue(mToken);
     }
 
     //AutoRefresh
 
     public void startMinuteUpdater() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_TIME_TICK);
-        minuteUpdateReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                counter++;
-            }
-        };
-
-        registerReceiver(minuteUpdateReceiver, intentFilter);
+        SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("Current_USERID", mUID);
+        editor.apply();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         startMinuteUpdater();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(minuteUpdateReceiver);
+        //unregisterReceiver(minuteUpdateReceiver);
     }
 }
