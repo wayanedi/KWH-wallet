@@ -71,7 +71,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         int i = Integer.parseInt(user.replaceAll("[\\D]", ""));
         Intent intent = new Intent(this, MenuActivity.class);
         Bundle bundle =  new Bundle();
-        bundle.putString("", user);
+        bundle.putString("hisUid", user);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_ONE_SHOT);
