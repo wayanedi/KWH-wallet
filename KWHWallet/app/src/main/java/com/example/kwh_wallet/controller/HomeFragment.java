@@ -20,6 +20,7 @@ import com.example.kwh_wallet.R;
 public class HomeFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
+    Button pln;
 
     @Nullable
     @Override
@@ -51,6 +52,15 @@ public class HomeFragment extends Fragment {
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
+            }
+        });
+
+        pln =  view.findViewById(R.id.pln);
+        pln.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), PLN_payment.class);
+                startActivity(i);
             }
         });
 

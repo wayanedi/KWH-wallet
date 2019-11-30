@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgApp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KONFIRMASI PEMBAYARAN"
+        android:id="@+id/konfirmasi"
+        android:textSize="24dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/nomorMeterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nomor Meter Anda: "
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/colorOrangeDark"
+        android:layout_below="@id/konfirmasi"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nomor Meternya"
+        android:id="@+id/nomorMeter"
+        android:layout_below="@id/nomorMeterLabel"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/namaPelangganlabel"
+        android:text="Nama Pelanggan: "
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/colorOrangeDark"
+        android:layout_below="@id/nomorMeter"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama Pelangganya"
+        android:id="@+id/namapelanggan"
+        android:layout_below="@id/namaPelangganlabel"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/periodeLabel"
+        android:text="Periode Pembayaran"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/colorOrangeDark"
+        android:layout_below="@id/namapelanggan"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Periodenya"
+        android:id="@+id/periode"
+        android:layout_below="@id/periodeLabel"
+        android:layout_marginLeft="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailLabel"
+        android:text="Detail"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/colorOrangeDark"
+        android:layout_below="@id/periode"
+        android:textSize="18dp"/>
+
+    <LinearLayout
+        android:id="@+id/tagihan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailLabel"
+        android:layout_marginLeft="40dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Jumlah Tagihan" />
+
+        <TextView
+            android:id="@+id/biayatagihan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rp. " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/biaya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tagihan"
+        android:layout_marginLeft="40dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Biaya Transaksi" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rp. 2000" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/BayarPln"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Konfirmasi"
+        android:layout_marginTop="70dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/button"
+        android:layout_below="@id/biaya"/>
+
+    <Button
+        android:id="@+id/Batalkan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BayarPln"
+        android:layout_marginTop="20dp"
+        android:text="Batalkan Pembayaran"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/button" />
+
+</RelativeLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgApp">
+
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/back"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kebijakan Privasi"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:textSize="15dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/backBtn"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/toolbars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PT Wacana Internasional (“KWH” atau “Kami”) sangat menghormati hal-hal yang berkenaan dengan perlindungan privasi Anda. Oleh karena itu, Kami menyusun Kebijakan Privasi ini untuk menjelaskan kepada Anda bagaimana Kami memperoleh, mengumpulkan, mengolah, menganalisis, menggunakan, menyimpan, menampilkan, mengumumkan, mengirimkan, menyebarluaskan, menghapus dan memusnahkan Data Pribadi Anda yang diberikan kepada Kami atau yang dikumpulkan oleh Kami baik pada saat mengunduh, melakukan registrasi, mengakses situs web, serta menggunakan layanan atau produk KWH (“Aplikasi”), kecuali diatur pada kebijakan privasi yang terpisah. Anda menyatakan bahwa Data Pribadi Anda merupakan data yang benar dan sah, serta Anda memberikan persetujuan kepada Kami untuk memperoleh, mengumpulkan, mengolah,menganalisis, menyimpan, menampilkan, mengumumkan, mengirimkan, menyebarluaskan, menghapus dan memusnahkan sesuai dengan Kebijakan Privasi ini dan peraturan perundang-undangan yang berlaku. Kami harap Anda membaca Kebijakan Privasi ini dengan saksama untuk memastikan bahwa Anda memahami bagaimana proses pengolahan data Kami. Dengan menggunakan Aplikasi KWH berarti Anda mengakui bahwa Anda telah membaca, memahami dan menyetujui seluruh ketentuan yang terdapat dalam Kebijakan Privasi ini, yang adalah satu kesatuan yang tak terpisahkan dengan Syarat dan Ketentuan KWH. Istilah-istilah dalam huruf kapital yang digunakan memiliki arti yang sama dengan yang terdapat dalam Syarat dan Ketentuan KWH. Silakan klik tautan berikut https://KWH.id/syarat-ketentuan untuk mengakses Syarat dan Ketentuan KWH.\n\n
+A. DATA PRIBADI
+“Data Pribadi” adalah setiap data, informasi, dan/atau keterangan dalam bentuk apapun yang dapat mengidentifikasikan diri Anda, yang dari waktu ke waktu Anda sampaikan kepada Kami atau yang Anda cantumkan atau sampaikan dalam, pada, dan/atau melalui Aplikasi yang menyangkut informasi mengenai pribadi Anda, yang mencakup, antara lain: nama lengkap, nomor kartu identitas Anda, tanggal lahir, jenis kelamin, alamat surat elektronik (e-mail), nomor telepon genggam/handphone(termasuk namun tidak terbatas pada:IP address, informasi lokasi, data perangkat Anda, nomor IMEI, nama aplikasi yang telah dilekatkan pada perangkat Anda), data yang menyangkut informasi mengenai kegiatan transaksi Anda pada Aplikasi KWH, dan data lainnya yang tergolong sebagai data pribadi.
+\n\nB. KEAKURATAN DATA PRIBADI
+Kami membutuhkan Data Pribadi Anda, salah satunya adalah untuk dapat melakukan pemrosesan transaksi. Oleh karena itu, Data Pribadi yang Anda berikan kepada Kami haruslah seakurat mungkin dan tidak menyesatkan. Anda harus memperbaharui dan memberitahukan kepada Kami apabila ada perubahan terhadap Data Pribadi Anda. Anda dengan ini membebaskan Kami dari setiap tuntutan, gugatan, ganti rugi, dan/atau klaim sehubungan dengan kegagalan pemrosesan transaksi pada Aplikasi KWH yang disebabkan oleh ketidakakuratan Data Pribadi yang Anda berikan kepada Kami.
+
+Apabila Anda belum berusia 18 tahun, belum menikah atau berada di bawah pengampuan maka Anda memerlukan persetujuan dari orang tua, wali atau pengampu Anda yang sah untuk memberikan Data Pribad kepada Kami. Jika Data Pribadi Anda tersebut diberikan kepada Kami, Anda dengan ini menyatakan dan menjamin bahwa orang tua, wali yang sah atau pengampu Anda telah menyetujui pemrosesan Data Pribadi anda tersebut dan secara pribadi menerima dan setuju untuk terikat oleh Kebijakan Privasi ini dan bertanggung jawab atas tindakan Anda.
+
+Dalam keadaan tertentu, Anda mungkin memberikan Data Pribadi yang berkaitan dengan orang lain (seperti pasangan, anggota keluarga, dan/atau teman Anda). Dalam keadaan tersebut, Anda menyatakan dan menjamin bahwa Anda telah memiliki wewenang dan persetujuan dari pemilik Data Pribadi tersebut untuk memberikan Data Pribadi mereka kepada Kami untuk digunakan sesuai dengan tujuan-tujuan yang diuraikan dalam Kebijakan Privasi ini.
+\n\nC. PENGUMPULAN DATA PRIBADI
+1.	Penyediaan Data Pribadi Anda bersifat sukarela. Namun, jika Anda tidak memberikan Data Pribadi Anda kepada Kami, Kami tidak akan dapat memproses Data Pribadi Anda untuk tujuan yang diuraikan di bawah ini, dan dapat menyebabkan Kami tidak dapat memberikan layanan-layanan atau produk-produk kepada, atau memproses pembayaran-pembayaran dari Anda.
+2.	Kami akan mengumpulkan Data Pribadi Anda pada saat Anda membuat atau melakukan pengkinian Akun atau pada saat lainnya sebagaimana Kami mintakan kepada Anda apabila dibutuhkan dari waktu ke waktu.
+3.	Kami akan mengumpulkan Data Pribadi Anda setiap kali Anda mengakses Aplikasi KWH atau melakukan transaksi menggunakan Aplikasi KWH.
+\n\nD. PENGGUNAAN DATA PRIBADI
+Kami akan mengolah, menganalisis, dan/atau menggunakan Data Pribadi Anda untuk tujuan sebagai berikut maupun tujuan lain yang diizinkan oleh peraturan perundang-undangan yang berlaku:
+4.	mengidentifikasi dan mendaftarkan Anda sebagai pengguna Aplikasi KWH dan melakukan verifikasi, menonaktifkan atau mengelola akun Anda, termasuk melakukan proses Mengenal Pelanggan (Know Your Customer);.
+5.	memungkinkan Kami untuk menyediakan layanan yang Anda minta atau memproses transaksi yang Anda minta;
+6.	memproses dan mengelola KWH Cash dan KWH Points Anda;
+7.	mencegah, mendeteksi, menyelidiki dan mengatasi terjadinya tindakan yang merupakan kejahatan, dilarang, ilegal, tidak sah atau curang, yang mungkin terjadi dalam penggunaan Aplikasi KWH (termasuk namun tidak terbatas pada penipuan (fraud), penggelapan, pencurian dan pencucian uang);
+8.	mengembangkan, menambah dan menyediakan produk untuk memenuhi kebutuhan Anda;
+9.	pelaksanaan riset mengenai data demografis pengguna Aplikasi KWH;
+10.	mengembangkan, meningkatkan, dan menyediakan layanan-layanan Kami, Aplikasi KWH, dan fitur-fitur di dalam Aplikasi KWH;
+11.	pengiriman informasi yang Kami anggap berguna untuk Anda termasuk informasi tentang layanan dari Kami setelah Anda memberikan persetujuan kepada Kami bahwa Anda tidak keberatan dihubungi mengenai layanan Kami;
+12.	tujuan administratif internal, seperti; audit, analisis data, rekaman-rekaman dalam data base;
+13.	berkomunikasi dengan Anda sehubungan dengan segala hal mengenai Aplikasi KWH, layanan-layanan Kami, dan/atau fitur-fitur daripadanya; dan
+14.	menjaga keselamatan, keamanan, dan keberlangsungan Aplikasi KWH, layanan-layanan Kami, dan/atau fitur-fitur daripadanya.
+\n\nE. PENGUNGKAPAN KEPADA PIHAK KETIGA
+Untuk tujuan pengembangan, peningkatan, perlindungan, maupun pemeliharaan Aplikasi KWH, dan/atau layanan-layanan Kami lainnya, Kami terkadang diharuskan untuk menampilkan, mengumumkan, mengirimkan, dan/atau menyebarluaskan Data Pribadi kepada pihak ketiga. Anda dengan ini menyatakan telah memberikan persetujuan, izin, dan wewenang kepada Kami untuk mengumumkan, mengirimkan, dan/atau menyebarluaskan serta memberikan akses atas Data Pribadi kepada pihak ketiga untuk tujuan-tujuan sebagaimana dimaksud dalam paragraf D di atas. Untuk menghindari keragu-raguan, pihak ketiga sebagaimana dimaksud dalam paragraf ini dapat merupakan, termasuk namun tidak terbatas pada:
+15.	pihak ketiga yang adalah perusahaan afiliasi Kami untuk atau sehubungan dengan tujuan yang terkait dengan penyediaan Aplikasi KWH, pengelolaan bisnis dan kegiatan lainnya; dan
+16.	pihak ketiga yang adalah otoritas atau institusi pemerintahan jika (i) disyaratkan atau diperintahkan oleh peraturan perundang-undangan yang berlaku (termasuk namun tidak terbatas pada menanggapi pertanyaan terkait regulasi, penyelidikan atau pedoman, atau mematuhi persyaratan atau ketentuan pengarsipan dan pelaporan berdasarkan peraturan perundang-undangan yang berlaku) dan/atau (ii) terdapat proses hukum yang terkait dengan Kami;
+17.	pihak ketiga apabila terdapat transaksi perusahaan, seperti: pembentukan perusahaan patungan, penjualan anak perusahaan atau divisi, penggabungan, konsolidasi, pengambilalihan, penjualan aset, ataupun likuidasi;
+18.	pihak ketiga lainnya (termasuk agen, vendor, pemasok, kontraktor, mitra dan pihak lain yang memberikan layanan kepada kami atau Anda, melakukan tugas atas nama Kami atau Pihak dengan siapa Kami mengadakan kerja sama komersial) untuk atau sehubungan dengan tujuan dimana pihak ketiga tersebut terlibat atau tujuan kerja sama Kami dengan pihak ketiga tersebut (tergantung keadaannya), yang dapat mencakup diperbolehkannya pihak ketiga tersebut untuk memperkenalkan atau menawarkan produk atau layanan kepada Anda atau melakukan kegiatan lain termasuk pemasaran, penelitian, analisis, dan pengembangan produk pihak ketiga tersebut (tergantung keadaannya).
+\n\nF. TAUTAN KE SITUS PIHAK KETIGA
+Aplikasi KWH dapat saja berisi tautan ke situs pihak ketiga. Kami tidak bertanggung jawab atas perolehan, pengumpulan, pengolahan, penganalisisan, penggunaan, penyimpanan, penampilan, pengumuman, pengiriman, penyebarluasan, penghapusan dan pemusnahan Data Pribadi Anda oleh pihak ketiga tersebut. Jika anda memberikan informasi langsung ke situs tersebut, kebijakan privasi dan ketentuan layanan di situs tersebut akan berlaku, dan Kami tidak bertanggung jawab atas kegiatan pengolahan informasi atau kebijakan privasi dari situs tersebut.
+\n\nG. PENYIMPANAN DAN KEAMANAN DATA
+19.	Kami memastikan bahwa data Anda yang dikumpulkan dan/atau terkumpul oleh Kami akan disimpan dengan aman sesuai dengan peraturan perundang-undangan yang berlaku di Indonesia. Kami akan menyimpan data Anda selama diperlukan untuk memenuhi tujuan yang dijelaskan dalam Kebijakan Privasi ini;
+20.	Kami akan berhenti menyimpan, menghapus dan/atau memusnahkan Data Pribadi segera setelah dianggap bahwa tujuan pengumpulan Data Pribadi tidak lagi dibutuhkan dan diperbolehkan oleh peraturan perundang-undangan yang berlaku di Indonesia;
+21.	Data Pribadi Anda dimungkinkan untuk disimpan, ditransfer atau diolah oleh penyedia layanan pihak ketiga. Kami akan berupaya secara wajar untuk memastikan pihak ketiga tersebut melakukan perlindungan Data Pribadi yang sebanding dengan komitmen kami sesuai Kebijakan Privasi ini.
+\n\nH. AKSES TIDAK SAH
+Kami bertanggung jawab terhadap Data Pribadi yang Kami kumpulkan dari Anda namun perlu diketahui Anda juga bertanggung jawab untuk menjaga kerahasiaan Data Pribadi Anda dengan tidak akan membiarkan pihak ketiga untuk dapat mengakses Data Pribadi Anda tanpa persetujuan dan sepengetahuan Anda. Sehubungan dengan hal ini, Kami tidak bertanggung jawab atas penyalahgunaan Akun, password dan/atau PIN Anda yang Anda buat dan gunakan untuk mengakses Data Pribadi Anda dimanapun Anda menyimpan Data Pribadi Anda, termasuk Akun, password dan/atau PIN untuk mengakses atau login Aplikasi KWH Anda. Anda wajib memberitahukan kepada Kami apabila Anda yakin bahwa password dan/atau PIN Aplikasi KWH Anda disalahgunakan oleh pihak ketiga.
+\n\nI. HAK KEKAYAAN INTELEKTUAL
+22.	Seluruh Aplikasi KWH dan sistem pendukungnya termasuk tetapi tidak terbatas pada seluruh: (a) layout, desain dan tampilan Aplikasi KWH yang terdapat dalam atau ditampilkan pada media Aplikasi KWH; (b) logo, foto, gambar, nama, merek, kata, huruf-huruf, angka-angka, tulisan, dan susunan warna yang terdapat dalam Aplikasi KWH; dan (c) kombinasi dari unsur-unsur sebagaimana dimaksud dalam huruf (a) dan (b), sepenuhnya merupakan Hak Kekayaan Intelektual milik Kami dan tidak ada pihak lain yang turut memiliki hak atas Aplikasi maupun atas layout, desain dan tampilan Aplikasi;
+23.	Anda tidak diperkenankan dari waktu ke waktu untuk (i) menyalin, memodifikasi,mengadaptasi, menerjemahkan, membuat karya turunan dari, mendistribusikan, menjual, mengalihkan, menampilkan di muka umum, membuat ulang, mentransmisikan, memindahkan, menyiarkan, menguraikan, atau membongkar bagian manapun dari atau dengan cara lain mengeksploitasi Aplikasi KWH (termasuk sistem pendukung dan layanan di dalamnya) yang dilisensikan kepada Anda, kecuali sebagaimana diperbolehkan dalam Syarat dan Ketentuan ini, (ii) memberikan lisensi, mensublisensikan, menjual, menjual kembali, memindahkan, mengalihkan, mendistribusikan atau mengeksploitasi secara komersial ataumembuat tersedia kepada pihak ketiga dan / atau perangkat lunak dengan cara; (iii) menerbitkan, mendistribusikan atau memperbanyak dengan cara apapun materi yang dilindungi hak cipta, merek dagang, atau informasi yang Kami miliki lainnya tanpa memperoleh persetujuan terlebih dahulu dari Kami atau pemilik hak yang memberikan lisensi hak-nya kepada Kami, (iv) menghapus setiap hak cipta, merek dagang atau pemberitahuan hak milik lainnya yang terkandung dalam Aplikasi KWH, (v) merekayasa ulang atau mengakses Aplikasi KWH dan/atau sistem pendukungnya untuk (a) membangun produk atau layanan tandingan, (b) membangun produk dengan menggunakan ide, fitur, fungsi ataugrafis sejenis, atau (c) menyalin ide, fitur , fungsi atau grafis, (vi) meluncurkan program otomatis atau script, termasuk, namun tidak terbatas pada, web crawlers, web robots, web indexers, bots, virus, worm, atau aplikasin lain sejenis dan segala program apapun yang mungkin membuat beberapa permintaan server per detik, menciptakan beban berat atau menghambat operasi dan/atau kinerja Aplikasi KWH, (vii) menggunakan robot, spider, pencarian situs/aplikasi pengambilan kembali, atau perangkat manual atau otomatis lainnya atau proses untuk mengambil, indeks, 'tambang data' (data mine), atau dengan cara apapun memperbanyak atau menghindari struktur navigasi atau presentasi dari Aplikasi KWH dan isi yang terdapat di dalamny
+\n\nJ. PERMINTAAN AKSES DAN PERUBAHAN DATA PRIBADI
+Tunduk pada peraturan perundang-undangan yang berlaku, Anda dapat meminta sakses dan/atau meminta perubahan Data Pribadi Anda, dengan menghubungi Contact Center atau Layanan Pengguna KWH (dengan menyertakan bukti pendukung), melalui:
+o	Telepon ke nomor 1 500 696;
+o	email ke cs@KWH.id
+o	Pusat Bantuan di Aplikasi KWH;
+o	Twitter (KWH_id);
+o	Facebook (@KWHIDN);
+Kami berhak menolak permintaan Anda untuk mengakses dan/atau mengubah Data Pribadi Anda karena alasan yang dibenarkan berdasarkan peraturan perundang-undangan yang berlaku.
+\n\nK. PENCABUTAN PERSETUJUAN
+Anda berhak untuk meminta Kami untuk berhenti menggunakan Data Pribadi Anda untuk tujuan sebagaimana disebutkan di atas. Apabila Anda bermaksud untuk meminta Kami menghentikan penggunaan Data Pribadi Anda, Anda dapat menghubungi Contact Center atau Layanan Pengguna KWH (dengan menyertakan bukti pendukung) atau memilih opsi “unsubscribe” yang terdapat di dalam pesan yang Kami kirim agar Anda tidak lagi menerima pesan-pesan semacam itu di masa mendatang.
+
+Dalam hal pencabutan persetujuan tersebut dapat mengakibatkan penghentian setiap layanan Akun Anda atau perjanjian Kami dengan Anda, dengan ketentuan semua hak dan kewajiban yang muncul setelahnya harus dipenuhi. Setelah Anda menyampaikan maksud untuk mencabut persetujuan Anda, Kami akan memberitahukan tentang akibat yang mungkin terjadi, sehingga Anda dapat memutuskan apakah tetap ingin mencabut persetujuan Anda atau tidak.
+\n\nL. HUKUM YANG BERLAKU
+Kebijakan Privasi ini diatur dan ditafsirkan sesuai dengan hukum Negara Republik Indonesia.
+\n\nM. PERUBAHAN TERHADAP KEBIJAKAN PRIVASI
+Kami dapat untuk setiap saat mengubah, memperbarui, dan/atau menambahkan sebagian ataupun seluruh ketentuan dalam Kebijakan Privasi ini, sesuai dengan bisnis kami ke depan, dan/atau perubahan peraturan perundang-undangan. Apabila Kebijakan Privasi ini diubah/diperbaharui/ditambahkan maka Kami akan memberitahu Anda melalui notifikasi yang disampaikan melalui Aplikasi KWH dan/atau situs www.KWH.id, dan/atau ke alamat email Anda. Dengan terus berkomunikasi dengan Kami, menggunakan Aplikasi KWH dan layanan-layanan Kami, ataupun menggunakan fitur-fitur dalam Aplikasi KWH berarti menandakan penerimaan Anda atas perubahan, pembaharuan, dan/atau penambahan yang Kami lakukan terhadap Kebijakan Privasi ini. Jika Anda melanjutkan untuk menggunakan Aplikasi KWH setelah membaca Kebijakan Privasi ini (termasuk perubahannya), Anda dianggap telah menyetujui Kebijakan privasi ini (termasuk perubahannya) dan dapat melanjutkan penggunaan Aplikasi KWH.
+\n\nN. TANGGAL BERLAKU
+Kebijakan Privasi ini berlaku sejak tanggal 30 November 2019.
+
+"
+            android:textSize="18dp"
+            android:textAlignment="textStart"
+            android:padding="15dp"/>
+
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

@@ -78,9 +78,25 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
             android:resizeableActivity="true">
         </activity>
+        <activity
+            android:name=".controller.PLN_payment"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout"
+            android:resizeableActivity="true">
+        </activity>
+        <activity android:name=".controller.TentangActivity" />
+        <activity android:name=".controller.KebijakanPrivasi" />
+        <activity android:name=".controller.PusatBantuan" />
+
         <service android:name=".NotificationService.TransferNotificationService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
+        <service android:name=".NotificationService.FirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

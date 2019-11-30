@@ -25,7 +25,7 @@
             android:text="SETTING"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat"
-            android:textSize="24dp"
+            android:textSize="15dp"
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
@@ -56,14 +56,15 @@
                 android:paddingTop="5dp"
                 android:layout_marginBottom="10dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/editProfil"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bottom_border"
+                android:layout_height="40dp"
+                android:background="@drawable/setting_bottom_border"
                 android:layout_below="@id/akunTitle"
                 android:text="Edit Profil"
                 android:textSize="16dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
@@ -71,7 +72,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="left">
 
-            </Button>
+            </TextView>
 
         </RelativeLayout>
 
@@ -92,22 +93,23 @@
                 android:paddingTop="5dp"
                 android:layout_marginBottom="10dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/ubahPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@id/keamananTitle"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_bottom_border"
+                android:background="@drawable/setting_bottom_border"
                 android:fontFamily="@font/montserrat"
                 android:gravity="left"
+                android:textColor="@color/black"
                 android:text="Ubah Password"
                 android:textAllCaps="false"
                 android:textSize="16dp">
 
-            </Button>
+            </TextView>
 
         </RelativeLayout>
 
@@ -120,7 +122,7 @@
             <TextView
                 android:id="@+id/tentangTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Tentang"
                 android:textSize="18dp"
                 android:textColor="@color/colorOrangeDark"
@@ -128,13 +130,14 @@
                 android:paddingTop="5dp"
                 android:layout_marginBottom="10dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/tentangKWH"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bottom_border"
+                android:layout_height="40dp"
+                android:background="@drawable/setting_bottom_border"
                 android:layout_below="@id/tentangTitle"
                 android:text="Tentang KWH"
+                android:textColor="@color/black"
                 android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
@@ -143,41 +146,43 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="left">
 
-            </Button>
+            </TextView>
 
-            <Button
+            <TextView
                 android:id="@+id/kebijakanPrivasi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bottom_border"
+                android:layout_height="40dp"
+                android:background="@drawable/setting_bottom_border"
                 android:layout_below="@id/tentangKWH"
                 android:text="Kebijakan Privasi"
+                android:textColor="@color/black"
                 android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="left">
 
-            </Button>
+            </TextView>
 
-            <Button
+            <TextView
                 android:id="@+id/pusatBantuan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bottom_border"
+                android:layout_height="40dp"
+                android:background="@drawable/setting_bottom_border"
                 android:layout_below="@id/kebijakanPrivasi"
+                android:textColor="@color/black"
                 android:text="Pusat Bantuan"
                 android:textSize="16dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="left">
 
-            </Button>
+            </TextView>
 
         </RelativeLayout>
 
@@ -198,21 +203,21 @@
                 android:paddingTop="5dp"
                 android:layout_marginBottom="10dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/logoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/logoutTitle"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/button_bottom_border"
                 android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:gravity="left"
                 android:text="Logout"
                 android:textAllCaps="false"
                 android:textSize="16dp">
 
-            </Button>
+            </TextView>
 
         </RelativeLayout>
 
