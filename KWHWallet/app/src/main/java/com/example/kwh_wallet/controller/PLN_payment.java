@@ -102,7 +102,7 @@ public class PLN_payment extends AppCompatActivity {
             return;
 
         }
-
+        getNominal=0;
         for(int i=0 ; i<text.toString().length() ; i++){
             char c = text.toString().charAt(i);
             if(Character.isDigit(c)){
