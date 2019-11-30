@@ -1,6 +1,10 @@
 package com.example.kwh_wallet.controller;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +28,8 @@ public class QRCodeActivity extends AppCompatActivity {
     ImageView imageView;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    Dialog customDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,8 @@ public class QRCodeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        customDialog = new Dialog(this);
     }
 
     @Override
@@ -57,5 +65,27 @@ public class QRCodeActivity extends AppCompatActivity {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void zoomQrCode(View v){
+        customDialog.setContentView(R.layout.zoom_qrcode_activity);
+        ImageView iv =  customDialog.findViewById(R.id.QR_Code);
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(username, BarcodeFormat.QR_CODE, 800, 800);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            iv.setImageBitmap(bitmap);
+        } catch (WriterException e){
+            e.printStackTrace();
+        }
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
     }
 }
