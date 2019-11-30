@@ -69,9 +69,6 @@ public class PLN_payment extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         getSaldo();
-
-
-
     }
 
     public void nextPembayaran(View v){

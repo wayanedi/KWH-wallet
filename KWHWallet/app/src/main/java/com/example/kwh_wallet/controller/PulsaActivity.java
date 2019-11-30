@@ -1,28 +1,243 @@
 package com.example.kwh_wallet.controller;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
+import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.example.kwh_wallet.R;
+import com.example.kwh_wallet.model.History;
+import com.example.kwh_wallet.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class PulsaActivity extends AppCompatActivity {
     public static Activity fa;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private User user;
+    int total;
+    private int getNominal= 0;
+    Dialog customDialog;
+    private double current_saldo = -1;
+    private TextView nomorMeter;
+    boolean actionNext = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         fa = this;
-         super.onCreate(savedInstanceState);
         setContentView(R.layout.pulsa_activity);
-        PulsaFragmet fragInfo = new PulsaFragmet();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        getSaldo();
+    }
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container_pulsa_activity, fragInfo).commit();
+    private void getSaldo(){
+        Query query = FirebaseDatabase.getInstance().getReference("users")
+                .orderByChild("email").equalTo(firebaseUser.getEmail());
+        query.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists()){
+
+                System.out.println("ada data nya");
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    user = snapshot.getValue(User.class);
+
+
+                    System.out.println("saldo user: " + user.getSaldo());
+                    current_saldo=user.getSaldo();
+
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Bundle bundle = new Bundle();
+
+                            PulsaFragmet fragInfo = new PulsaFragmet();
+                            bundle.putDouble("saldo", current_saldo);
+                            fragInfo.setArguments(bundle);
+
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container_pulsa_activity, fragInfo).commit();
+                        }
+                    },1000);
+                }
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
+    private final  PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+            new PFLockScreenFragment.OnPFLockScreenLoginListener() {
+                @Override
+                public void onCodeInputSuccessful() {
+
+                    updateSaldo(current_saldo-Double.parseDouble(String.valueOf(total)), firebaseUser.getUid(), "-");
+
+                }
+
+                @Override
+                public void onFingerprintSuccessful() {
+
+                }
+
+                @Override
+                public void onPinLoginFailed() {
+
+                }
+
+                @Override
+                public void onFingerprintLoginFailed() {
+
+                }
+            };
+
+    public void nextPembayaran(View v){
+        TextView getNomorMeter = findViewById(R.id.nomorMeter);
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PulsaActivity.this);
+        if(getNomorMeter.getText().toString().trim().isEmpty()){
+            alertBuilder.setMessage("Nomor meter tidak boleh kosong !");
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Warning !");
+            alert.show();
+            return;
+        }
+        Spinner mySpinner = (Spinner) findViewById(R.id.nominal);
+        String text = mySpinner.getSelectedItem().toString();
+        if(text.equals("Pilih Nominal")){
+
+            alertBuilder.setMessage("Silahkan pilih Nominal !");
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Warning !");
+            alert.show();
+            return;
+
+        }
+        getNominal=0;
+        System.out.println("oke dongggg");
+        System.out.println("pin pln: " + user.getPin());
+
+
+        final View coba = v;
+
+        System.out.println("spinner: " + text);
+
+        for(int i=0 ; i<text.toString().length() ; i++){
+            char c = text.toString().charAt(i);
+            if(Character.isDigit(c)){
+                getNominal = (getNominal*10)+Integer.parseInt(String.valueOf(c));
+            }
+        }
+
+        customDialog = new Dialog(v.getContext());
+        nomorMeter = findViewById(R.id.nomorMeter);
+        customDialog.setContentView(R.layout.confirm_pulsa_payment);
+        TextView nomorMeterCD = customDialog.findViewById(R.id.nomorMeter);
+        TextView namaPelangganCD = customDialog.findViewById(R.id.namapelanggan);
+
+        TextView biayaTagihCD = customDialog.findViewById(R.id.biayatagihan);
+        Calendar c = Calendar.getInstance();
+        String[] monthName = {"January","February","March", "April", "May", "June", "July",
+                "August", "September", "October", "November",
+                "December"};
+        String month = monthName[c.get(Calendar.MONTH)];
+
+        nomorMeterCD.setText(nomorMeter.getText());
+        namaPelangganCD.setText(firebaseUser.getEmail());
+        biayaTagihCD.setText("Rp. "+String.valueOf(getNominal));
+        total = getNominal+2000;
+        Button batal = customDialog.findViewById(R.id.Batalkan);
+        batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+                actionNext = false;
+            }
+        });
+
+        Button bayar = customDialog.findViewById(R.id.BayarPln);
+        bayar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                customDialog.dismiss();
+                PFLockScreenFragment fragment = new PFLockScreenFragment();
+                PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(coba.getContext())
+                        .setMode(PFFLockScreenConfiguration.MODE_AUTH)
+                        .setTitle("masukan security code anda")
+                        .setCodeLength(4);
+                fragment.setConfiguration(builder.build());
+                fragment.setEncodedPinCode(user.getPin());
+                fragment.setLoginListener(mLoginListener);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_pulsa_activity, fragment).commit();
+
+
+            }
+        });
+
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
+        System.out.println("tess dong");
+
+
+    }
+
+    private void updateSaldo(double saldo, String key, String stats) {
+        try {
+            FirebaseDatabase.getInstance().getReference("users").child(key).child("saldo").setValue(saldo);
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
+            System.out.println(formatter.format(calendar.getTime()));
+            DatabaseReference mDatabase;
+            History history = new History(formatter.format(calendar.getTime()), stats+" Rp. "+String.valueOf(total), "PULSA");
+            mDatabase = FirebaseDatabase.getInstance().getReference("history");
+            mDatabase.child(key).child(formatter.format(calendar.getTime())).setValue(history);
+            Toast.makeText(getApplication(), "pembayaran Berhasil", Toast.LENGTH_SHORT).show();
+            finish();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void back(View view){
