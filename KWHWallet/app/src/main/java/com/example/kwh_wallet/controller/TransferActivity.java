@@ -179,7 +179,7 @@ public class TransferActivity extends AppCompatActivity {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy'_'HH:mm:ss");
             System.out.println(formatter.format(calendar.getTime()));
             DatabaseReference mDatabase;
-            History history = new History(formatter.format(calendar.getTime()), "+ Rp. "+value.getText().toString(), "Transfer");
+            History history = new History(formatter.format(calendar.getTime()), stats+" Rp. "+value.getText().toString(), "Transfer");
             mDatabase = FirebaseDatabase.getInstance().getReference("history");
             mDatabase.child(key).child(formatter.format(calendar.getTime())).setValue(history);
             Toast.makeText(getApplication(), "Transfer Berhasil", Toast.LENGTH_SHORT).show();
@@ -221,6 +221,7 @@ public class TransferActivity extends AppCompatActivity {
                 public void onCodeInputSuccessful() {
                     Toast.makeText(TransferActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
+                    System.out.println("masuk");
                     updateSaldo(Double.parseDouble(value.getText().toString()) + user_.getSaldo(), key_, "+");
                     updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                     showDialog();
