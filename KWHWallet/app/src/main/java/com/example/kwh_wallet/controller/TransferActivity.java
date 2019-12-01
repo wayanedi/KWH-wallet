@@ -252,9 +252,9 @@ public class TransferActivity extends AppCompatActivity {
                     Toast.makeText(TransferActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
 
-                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString()) +" oleh "+firebaseUser.getEmail();
+                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString());
                     //HistoryTransfer
-                    System.out.println("INI UID HANDI: "+hisUid);
+
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("sender", myUid);
@@ -354,7 +354,7 @@ public class TransferActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("BAJINGAN");
+                System.out.println("coeg");
             }
         });
     }

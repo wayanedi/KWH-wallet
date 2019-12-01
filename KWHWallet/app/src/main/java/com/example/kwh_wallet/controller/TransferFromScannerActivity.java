@@ -1,8 +1,10 @@
 package com.example.kwh_wallet.controller;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,8 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
+import com.example.kwh_wallet.NotificationService.Data;
+import com.example.kwh_wallet.NotificationService.Sender;
+import com.example.kwh_wallet.NotificationService.Token;
 import com.example.kwh_wallet.R;
 import com.example.kwh_wallet.model.History;
 import com.example.kwh_wallet.model.User;
@@ -27,9 +38,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransferFromScannerActivity extends AppCompatActivity {
     TextView usr;
@@ -42,6 +59,12 @@ public class TransferFromScannerActivity extends AppCompatActivity {
     private String pin = "";
     private double saldo_penerima=0;
 
+    String hisUid;
+
+    private RequestQueue requestQueue;
+    private String myUid;
+    boolean notify = false;
+
     EditText value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +74,10 @@ public class TransferFromScannerActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        myUid = firebaseUser.getUid();
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        Intent i = getIntent();
+        hisUid = i.getStringExtra("hisUid");
 
         Bundle extras = getIntent().getExtras();
         Double saldo = extras.getDouble(ScannerActivity.KEY_SALDO);
@@ -120,7 +147,7 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                         if(Double.parseDouble(value.getText().toString())<10000)
                             Toast.makeText(getApplication(), "Minimal transfer Rp 10.000!", Toast.LENGTH_SHORT).show();
                         else if(current_saldo>=Double.parseDouble(value.getText().toString())){
-
+                            notify = true;
                             PFLockScreenFragment fragment = new PFLockScreenFragment();
                             PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(TransferFromScannerActivity.this)
                                     .setMode(PFFLockScreenConfiguration.MODE_AUTH)
@@ -232,6 +259,33 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                 public void onCodeInputSuccessful() {
                     Toast.makeText(TransferFromScannerActivity.this, "Berhasil",
                             Toast.LENGTH_LONG).show();
+                    final String message = "Anda Telah menerima Transfer sebesar Rp,"+ Double.parseDouble(value.getText().toString());
+                    //HistoryTransfer
+
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("sender", myUid);
+                    hashMap.put("receiver", hisUid);
+                    hashMap.put("nominal", String.valueOf(Double.parseDouble(value.getText().toString())));
+                    mDatabase.child("Transfer").push().setValue(hashMap);
+                    DatabaseReference database = FirebaseDatabase.getInstance().getReference("users");
+                    DatabaseReference databaseData = database.child(firebaseUser.getUid());
+                    databaseData.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+
+                            if(notify){
+                                System.out.println("BISA SAMPE SINI TERNYATA WKWKWKWK");
+                                sendNotification(hisUid, user.getEmail(), message);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     System.out.println("ini key : " + key_penerima);
                     System.out.println();
                     updateSaldo(Double.parseDouble(value.getText().toString()) + saldo_penerima, key_penerima, "+");
@@ -256,5 +310,59 @@ public class TransferFromScannerActivity extends AppCompatActivity {
 
                 }
             };
+
+    public void sendNotification(final String hisUid, final String name, final String message){
+        System.out.println("INI BAGIAN KIRIM NOTIFNYA CUY");
+        DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allTokens.orderByKey().equalTo(hisUid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println("6");
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(myUid, message+";", "KWH_Wallet Transfer", hisUid, R.drawable.kwh_wallet_logo);
+                    Sender sender = new Sender(data, token.getToken());
+                    System.out.println("1");
+                    //fcm json
+                    try{
+                        JSONObject senderJsonObject = new JSONObject(new Gson().toJson(sender));
+                        JsonObjectRequest request = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObject, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
+                                System.out.println("2");
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
+                                System.out.println("3");
+                            }
+                        }){
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> headers =  new HashMap<>();
+                                headers.put("Content-Type", "application/json");
+                                headers.put("Authorization", "key=AAAA_Gth1k4:APA91bEoQj3rrz3QtJvMBxUVGF2qYHCuQFwtzmyCh1p4Vdfv9xWwXZ0J9sXTzhbYzMWbAPiRIODW5YhmRvvUPSRu2UyQ0FOgO77lSXCoBEHeZ4_R6NgjT4nRC0uFqz-KonKQd4lIDb3o");
+                                System.out.println("4");
+                                return headers;
+                            }
+                        };
+                        System.out.println("4");
+                        requestQueue.add(request);
+                    }catch (JSONException e){
+                        System.out.println("5");
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("coeg");
+            }
+        });
+    }
 
 }
