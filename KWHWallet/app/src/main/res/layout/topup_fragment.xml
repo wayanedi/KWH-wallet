@@ -123,6 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textinput"
             android:hint="Rp"
+            android:inputType="numberSigned"
             android:textColorHint="@color/colorHyperlink">
         </EditText>
 

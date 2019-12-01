@@ -23,6 +23,7 @@ import java.util.List;
 public class PulsaFragmet extends Fragment {
 
     private TextView sisaSaldo;
+    private double saldo;
     private Spinner nominal;
     private List<String> nominalPembayaran = new ArrayList<String>();
 
@@ -35,7 +36,7 @@ public class PulsaFragmet extends Fragment {
             @Override
             public void run() {
                 Bundle bundle = getArguments();
-                double saldo = bundle.getDouble("saldo");
+                saldo = bundle.getDouble("saldo");
                 System.out.println("saldo di plm: " + saldo);
 
                 sisaSaldo = view.findViewById(R.id.sisaSaldoLabel);

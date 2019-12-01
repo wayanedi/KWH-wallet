@@ -2,6 +2,7 @@ package com.example.kwh_wallet.controller;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -196,6 +198,8 @@ public class PulsaActivity extends AppCompatActivity {
         bayar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(current_saldo>=total){
+
 
                 customDialog.dismiss();
                 PFLockScreenFragment fragment = new PFLockScreenFragment();
@@ -210,7 +214,10 @@ public class PulsaActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_pulsa_activity, fragment).commit();
 
-
+                }
+                else{
+                    Toast.makeText(getApplication(), "Saldo tidak cukup", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
