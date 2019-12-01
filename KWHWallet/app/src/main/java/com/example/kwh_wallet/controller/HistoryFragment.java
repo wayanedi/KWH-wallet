@@ -70,9 +70,14 @@ public class HistoryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                listHistory.clear();
+                initDataset();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Collections.sort(listHistory);
+                        Collections.reverse(listHistory);;
+                        recyclerView.setAdapter(adapter);
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -149,7 +154,7 @@ public class HistoryFragment extends Fragment {
         }else if(s.equals("10")){
             return "Oktober";
         }else if(s.equals("11")){
-            return "Novermber";
+            return "November";
         }else
             return "Desember";
     }
