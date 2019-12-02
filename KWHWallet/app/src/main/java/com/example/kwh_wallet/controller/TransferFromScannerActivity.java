@@ -290,7 +290,7 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                     System.out.println("ini key : " + key_penerima);
                     System.out.println();
                     updateSaldo(Double.parseDouble(value.getText().toString()) + saldo_penerima, key_penerima, "+");
-btw                     updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+                    updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                     showDialog();
 //                    finish();
                 }
