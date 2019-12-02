@@ -136,6 +136,7 @@ public class TransferFromScannerActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     key_penerima = snapshot.getKey();
+                    hisUid = snapshot.getKey();
                     User user = snapshot.getValue(User.class);
                     System.out.println("email user " + user.getEmail() +"saldo user: " + user.getSaldo());
 
@@ -289,7 +290,7 @@ public class TransferFromScannerActivity extends AppCompatActivity {
                     System.out.println("ini key : " + key_penerima);
                     System.out.println();
                     updateSaldo(Double.parseDouble(value.getText().toString()) + saldo_penerima, key_penerima, "+");
-                    updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
+btw                     updateSaldo(current_saldo-Double.parseDouble(value.getText().toString()), firebaseUser.getUid(), "-");
                     showDialog();
 //                    finish();
                 }
