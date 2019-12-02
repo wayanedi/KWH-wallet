@@ -110,6 +110,18 @@ public class PLN_payment extends AppCompatActivity {
             }
         }
 
+        int sum = (int) (current_saldo - (getNominal+2000));
+
+        if(sum <0){
+
+            alertBuilder.setMessage("uang anda tidak cukup !");
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Warning !");
+            alert.show();
+            return;
+
+        }
+
         customDialog = new Dialog(v.getContext());
         nomorMeter = findViewById(R.id.nomorMeter);
         customDialog.setContentView(R.layout.confirm_pln_payment);
